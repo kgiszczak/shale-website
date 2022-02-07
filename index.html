@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div style="display: flex;">
+    <textarea rows="20" cols="50" style="margin-right: 10px;">
+class Address < Shale::Mapper
+  attribute :city, Shale::Type::String
+  attribute :street, Shale::Type::String
+end
+
+class User < Shale::Mapper
+  attribute :first_name, Shale::Type::String
+  attribute :last_name, Shale::Type::String
+  attribute :address, Address
+end
+
+user = User.from_json(<<~JSON)
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "address": {
+    "city": "City",
+    "street": "Street"
+  }
+}
+JSON
+
+p user.to_json
+    </textarea>
+    <div id="output" style="white-space: pre; width: 500px; height: 400px; border: 1px solid #000;"></div>
+  </div>
+  <button>Run</button>
+
+  <script src="./js-yaml.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
