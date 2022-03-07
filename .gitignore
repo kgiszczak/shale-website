@@ -1,4 +1,4 @@
 /node_modules/
 /dist/
-/runtime/shale/
-/src/runtime.js
+/src/runtime/shale/
+/src/website/runtime.js

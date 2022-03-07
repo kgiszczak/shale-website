@@ -5,7 +5,7 @@ const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/website/index.js',
   output: {
     publicPath: '',
   },
@@ -23,7 +23,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
+      template: 'src/website/index.html',
       minify: false,
     }),
     new HtmlInlineScriptPlugin(),

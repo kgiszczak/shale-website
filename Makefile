@@ -10,10 +10,10 @@ build: runtime
 	webpack build --mode production
 
 runtime: clone-shale bundle
-	cd runtime && opal -c --no-source-map -I shale/lib -I stubs runtime.rb > ../src/runtime.js
+	cd src/runtime && opal -c --no-source-map -I shale/lib -I stubs runtime.rb > ../website/runtime.js
 
 clone-shale:
-	cd runtime && (git -C shale pull || git clone https://github.com/kgiszczak/shale.git shale)
+	cd src/runtime && (git -C shale pull || git clone https://github.com/kgiszczak/shale.git shale)
 
 bundle:
-	cd runtime && bundle
+	cd src/runtime && bundle
