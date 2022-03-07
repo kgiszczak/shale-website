@@ -1,0 +1,157 @@
+Resources:
+  OriginAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Sub Static assets in ${AWS::StackName}
+
+  SharedLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 7
+      LogGroupName: !Join [ '-', [ !Ref 'AWS::StackName', 'LogGroup']]
+
+  LogBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: shalerb-logs
+      AccessControl: LogDeliveryWrite
+
+  RedirectBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: shalerb.org
+      WebsiteConfiguration:
+        RedirectAllRequestsTo:
+          HostName: www.shalerb.org
+          Protocol: https
+
+  WebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: www.shalerb.org
+      LoggingConfiguration:
+        DestinationBucketName: !Ref LogBucket
+        LogFilePrefix: shalerb/s3
+
+  WebsiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref WebsiteBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Action:
+              - s3:GetObject
+            Effect: Allow
+            Resource: !Join
+              - ''
+              - - !GetAtt WebsiteBucket.Arn
+                - /*
+            Principal:
+              CanonicalUser: !GetAtt OriginAccessIdentity.S3CanonicalUserId
+
+  TLSCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: shalerb.org
+      SubjectAlternativeNames:
+        - '*.shalerb.org'
+      DomainValidationOptions:
+        - DomainName: shalerb.org
+          HostedZoneId: Z0022488YKPXZNTKN2
+      ValidationMethod: DNS
+
+  RedirectDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        HttpVersion: http2
+        PriceClass: PriceClass_100
+        ViewerCertificate:
+          AcmCertificateArn: !Ref TLSCertificate
+          MinimumProtocolVersion: TLSv1.1_2016
+          SslSupportMethod: sni-only
+        Aliases:
+          - shalerb.org
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - HEAD
+            - GET
+            - OPTIONS
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # CachingOptimized
+          Compress: true
+          ViewerProtocolPolicy: redirect-to-https
+          TargetOriginId: RedirectBucket
+        Origins:
+          - Id: RedirectBucket
+            DomainName: !Select [1, !Split ["//", !GetAtt RedirectBucket.WebsiteURL]]
+            CustomOriginConfig:
+              OriginProtocolPolicy: http-only
+
+  Distribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        HttpVersion: http2
+        PriceClass: PriceClass_100
+        ViewerCertificate:
+          AcmCertificateArn: !Ref TLSCertificate
+          MinimumProtocolVersion: TLSv1.1_2016
+          SslSupportMethod: sni-only
+        Aliases:
+          - www.shalerb.org
+        DefaultRootObject: index.html
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - HEAD
+            - GET
+            - OPTIONS
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # CachingOptimized
+          Compress: true
+          ViewerProtocolPolicy: redirect-to-https
+          TargetOriginId: Bucket
+        Origins:
+          - Id: Bucket
+            DomainName: !GetAtt WebsiteBucket.DomainName
+            S3OriginConfig:
+              OriginAccessIdentity: !Join
+                - /
+                - - origin-access-identity
+                  - cloudfront
+                  - !Ref OriginAccessIdentity
+        Logging:
+          Bucket: !Join
+            - .
+            - - !Ref LogBucket
+              - s3
+              - !Ref AWS::URLSuffix
+          Prefix: shalerb/web
+
+  DNS:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneId: Z0022488YKPXZNTKN2
+      RecordSets:
+        - Name: shalerb.org.
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2
+            DNSName: !GetAtt RedirectDistribution.DomainName
+        - Name: shalerb.org.
+          Type: AAAA
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2
+            DNSName: !GetAtt RedirectDistribution.DomainName
+        - Name: www.shalerb.org.
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2
+            DNSName: !GetAtt Distribution.DomainName
+        - Name: www.shalerb.org.
+          Type: AAAA
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2
+            DNSName: !GetAtt Distribution.DomainName

@@ -1,0 +1,492 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vue-powered Static Site Generator">
+  <title>Document</title>
+</head>
+<body>
+  <header class="navbar">
+    <a href="/" class="home-link">Shale</a>
+    <div class="links">
+      <a href="https://github.com/kgiszczak/shale" target="_blank" rel="noopener noreferrer">
+        GitHub
+      </a>
+    </div>
+  </header>
+
+  <div class="content">
+    <h1 id="introduction">
+      <a href="#introduction" class="header-anchor">#</a> Introduction
+    </h1>
+
+    <p>
+      Working with data serialization formats directly can be painfull.
+      This is especially true for XML. Let's consider this simple example of adding an
+      address to a person using <code>Nokogiri</code>:
+    </p>
+
+    <div class="code-section">
+      <div class="code-wrapper">
+        <div
+          class="code code-readonly code-with-gutter"
+          data-mode="ruby"
+          style="height: 330px;"
+        >require 'nokogiri'
+
+doc = Nokogiri::XML(&lt;&lt;~XML)
+  &ltperson&gt&lt/person&gt
+XML
+
+address = Nokogiri::XML::Node.new('address', doc)
+
+street = Nokogiri::XML::Node.new('street', doc)
+street.content = 'Oxford Street'
+address.add_child(street)
+
+city = Nokogiri::XML::Node.new('city', doc)
+city.content = 'London'
+address.add_child(city)
+
+doc.root.add_child(address)
+puts doc.to_xml
+        </div>
+      </div>
+      <a href="" class="copy-to-clipboard"></a>
+    </div>
+
+    <p>
+      That's a lot of code for very simple use case.
+      Anything more complex and code complexity increases exponentially
+      leading to a maintanace problems and a lot of errors.
+    </p>
+
+    <p>
+      With Shale you can use Ruby objects to work with data
+      converting it to/from JSON, YAML or XML.
+    </p>
+
+    <p>
+      Let's convert the same example to Shale:
+    </p>
+
+    <div class="code-section">
+      <div class="code-wrapper">
+        <div
+          class="code code-readonly code-with-gutter"
+          data-mode="ruby"
+          style="height: 280px;"
+        >require 'shale'
+
+class Address &lt Shale::Mapper
+  attribute :street, Shale::Type::String
+  attribute :city, Shale::Type::String
+end
+
+class Person &lt Shale::Mapper
+  attribute :address, Address
+end
+
+person = Person.from_xml('&ltperson&gt&lt/person&gt')
+person.address = Address.new(street: 'Oxford Street', city: 'London')
+
+puts person.to_xml
+        </div>
+      </div>
+      <a href="" class="copy-to-clipboard"></a>
+    </div>
+
+    <p>
+      That's much simpler and it stays simple when the code complexity increases.
+    </p>
+
+    <h2 id="prerequisites">
+      <a href="#prerequisites" class="header-anchor">#</a> Prerequisites
+    </h2>
+
+    <ul>
+      <li>
+        <a href="https://www.ruby-lang.org" target="_blank" rel="noopener noreferrer">
+          Ruby 2.6+
+        </a>
+      </li>
+      <li>
+        <a href="https://nokogiri.org" target="_blank" rel="noopener noreferrer">
+          Nokogiri
+        </a>
+        (Optional)
+      </li>
+      <li>
+        <a href="https://github.com/ohler55/ox" target="_blank" rel="noopener noreferrer">
+          Ox
+        </a>
+        (Optional)
+      </li>
+    </ul>
+
+    <p>
+      Shale doesn't have external dependencies. It uses standard library's
+      <code>JSON</code>, <code>YAML</code> and <code>REXML</code> parsers by default.
+    </p>
+
+    <p>
+      If you need more performant solutions you can use custom libraries.
+      Out of the box, Shale provides adapters for <code>Nokogiri</code> and <code>Ox</code>
+      - <a href="#adapters">see how to use them</a>.
+    </p>
+
+    <h2 id="features">
+      <a href="#features" class="header-anchor">#</a> Features
+    </h2>
+
+    <ul>
+      <li>Convert JSON, YAML and XML to Ruby</li>
+      <li>Convert Ruby to JSON, YAML and XML</li>
+      <li>Out of the box support for JSON, YAML, Nokogiri, REXML and Ox parsers</li>
+      <li>Support for custom adapters</li>
+      <li>
+        It's pretty performant. Handling JSON is about 15% slower
+        than using JSON directly, but for XML it can be a few times faster.
+        <a
+          href="https://github.com/kgiszczak/shale/tree/master/performance"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Take a look at the performance data
+        </a>.
+      </li>
+    </ul>
+
+    <h2 id="installation">
+      <a href="#installation" class="header-anchor">#</a> Installation
+    </h2>
+
+    <p>Add this line to your application's Gemfile:</p>
+
+    <div class="code-section">
+      <div class="code-wrapper">
+        <div class="code code-readonly" data-mode="ruby" style="height: 50px;">
+    gem 'shale'
+        </div>
+      </div>
+      <a href="" class="copy-to-clipboard"></a>
+    </div>
+
+    <p>And then execute:</p>
+
+    <div class="code-section">
+      <div class="code-wrapper">
+        <div class="code code-readonly" data-mode="sh" style="height: 50px;">
+    $ bundle install
+        </div>
+      </div>
+      <a href="" class="copy-to-clipboard"></a>
+    </div>
+
+    <p>Or install it yourself as:</p>
+
+    <div class="code-section">
+      <div class="code-wrapper">
+        <div class="code code-readonly" data-mode="sh" style="height: 50px;">
+    $ gem install shale
+        </div>
+      </div>
+      <a href="" class="copy-to-clipboard"></a>
+    </div>
+
+    <h2 id="convert-data-to-ruby">
+      <a href="#convert-data-to-ruby" class="header-anchor">#</a> Convert data to Ruby
+    </h2>
+
+    <p>
+      Converting data to Ruby is as simple as defining model classes and calling
+      <code>from_&ltformat&gt</code> method on this class.
+      e.g. <code>Person.from_json(json_doc)</code>
+    </p>
+
+    <div id="example-1">
+      <div class="example-group">
+        <strong>Example:</strong>
+        <a href="" data-mode="json" class="active-example">JSON to Ruby</a>
+        <a href="" data-mode="yaml">YAML to Ruby</a>
+        <a href="" data-mode="xml">XML to Ruby</a>
+        <a href="" data-mode="ruby">Ruby Hash to Ruby</a>
+      </div>
+
+      <div class="code-section code-section-editor">
+        <div class="code-wrapper">
+          <div class="code code-with-gutter" data-mode="ruby" style="height: 570px;">
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <div class="run-button-wrapper">
+        <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+      </div>
+
+      <div class="code-section code-section-output">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="ruby" style="height: 160px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="convert-ruby-to-data">
+      <a href="#convert-ruby-to-data" class="header-anchor">#</a> Convert Ruby to data
+    </h2>
+
+    <p>
+      To convert Ruby to data just define model class, initialize object and call
+      <code>to_&ltformat&gt</code> method on it.
+      e.g. <code>Person.new(name: 'John Doe').to_json</code>
+    </p>
+
+    <div id="example-2">
+      <div class="example-group">
+        <strong>Example:</strong>
+        <a href="" data-mode="json" class="active-example">Ruby to JSON</a>
+        <a href="" data-mode="yaml">Ruby to YAML</a>
+        <a href="" data-mode="xml">Ruby to XML</a>
+        <a href="" data-mode="ruby">Ruby to Hash</a>
+      </div>
+
+      <div class="code-section code-section-editor">
+        <div class="code-wrapper">
+          <div class="code code-with-gutter" data-mode="ruby" style="height: 530px;">
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <div class="run-button-wrapper">
+        <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+      </div>
+
+      <div class="code-section code-section-output">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="ruby" style="height: 270px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="custom-mappings">
+      <a href="#custom-mappings" class="header-anchor">#</a> Custom mappings
+    </h2>
+
+    <p>
+      When you define a class and add attributes, underneath Shale creates implicit mapping
+      of keys (for JSON/YAML) and elements (for XML) to attributes.
+      That is nice for setting up your data model quickly, but usually your data format doesn't
+      match your data model so cleanly.
+    </p>
+
+    <p>
+      That's why you can explicitly map keys, element, attributes from your
+      data format to attributes on you Ruby model.
+    </p>
+
+    <div id="example-3">
+      <div class="example-group">
+        <strong>Example:</strong>
+        <a href="" data-mode="json" class="active-example">Ruby to JSON</a>
+        <a href="" data-mode="yaml">Ruby to YAML</a>
+        <a href="" data-mode="ruby">Ruby to Hash</a>
+      </div>
+
+      <div class="code-section code-section-editor">
+        <div class="code-wrapper">
+          <div class="code code-with-gutter" data-mode="ruby" style="height: 330px;">
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <div class="run-button-wrapper">
+        <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+      </div>
+
+      <div class="code-section code-section-output">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="ruby" style="height: 80px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      XML is more complicated format than JSON and YAML.
+    </p>
+
+    <ul>
+      <li>To map XML element use <code>map_element</code></li>
+      <li>To map XML attribute use <code>map_attribute</code></li>
+      <li>
+        To map XML text node use <code>map_content</code>
+        (it will map first text node in an element)
+      </li>
+      <li>To change the name of the root element use <code>root</code></li>
+    </ul>
+
+    <div id="example-4">
+      <div class="code-section code-section-editor">
+        <div class="code-wrapper">
+          <div class="code code-with-gutter" data-mode="ruby" style="height: 410px;">
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <div class="run-button-wrapper">
+        <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+      </div>
+
+      <div class="code-section code-section-output">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="ruby" style="height: 80px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="using-methods">
+      <a href="#using-methods" class="header-anchor">#</a>
+      Using methods to extract and generate data
+    </h2>
+
+    <p>
+      If you need full controll over extracting and generating data you can use methods to do so.
+    </p>
+
+    <div id="example-5">
+      <div class="example-group">
+        <strong>Example:</strong>
+        <a href="" data-mode="json" class="active-example">JSON</a>
+        <a href="" data-mode="yaml">YAML</a>
+        <a href="" data-mode="xml">XML</a>
+      </div>
+
+      <div class="code-section code-section-editor">
+        <div class="code-wrapper">
+          <div class="code code-with-gutter" data-mode="ruby" style="height: 530px;">
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <div class="run-button-wrapper">
+        <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+      </div>
+
+      <div class="code-section code-section-output">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="ruby" style="height: 100px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="supported-types">
+      <a href="#supported-types" class="header-anchor">#</a> Supported types
+    </h2>
+
+    <p>
+      Shale supports these types out of the box:
+    </p>
+
+    <ul>
+      <li><code>Shale::Type::String</code></li>
+      <li><code>Shale::Type::Integer</code></li>
+      <li><code>Shale::Type::Float</code></li>
+      <li><code>Shale::Type::Boolean</code></li>
+      <li><code>Shale::Type::Date</code></li>
+      <li><code>Shale::Type::Time</code></li>
+    </ul>
+
+    <p>
+      To add your own type extend defina a class and extend it from
+      <code>Shale::Type::Base</code> and implement <code>.cast</code> class method.
+    </p>
+
+    <div class="code-section">
+      <div class="code-wrapper">
+        <div
+          class="code code-readonly code-with-gutter"
+          data-mode="ruby"
+          style="height: 140px;"
+        >require 'shale/type/base'
+
+class MyIntegerType &lt; Shale::Type::Base
+  def self.cast(value)
+    value.to_i
+  end
+end
+        </div>
+      </div>
+      <a href="" class="copy-to-clipboard"></a>
+    </div>
+
+    <h2 id="adapters">
+      <a href="#adapters" class="header-anchor">#</a> Adapters
+    </h2>
+
+    <p>
+      Shale uses adapters for parsing and generating documents.
+      By default Ruby's standard JSON parser is used for handling JSON documents,
+      YAML for YAML and REXML for XML.
+    </p>
+    <p>
+      You can change it by providing your own adapter. For JSON and YAML, adapter must implement
+      <code>.load</code> and <code>.dump</code> class methods.
+    </p>
+
+    <div class="code-section">
+      <div class="code-wrapper">
+        <div
+          class="code code-readonly code-with-gutter"
+          data-mode="ruby"
+          style="height: 110px;"
+        >require 'shale'
+require 'multi_json'
+
+Shale.json_adapter = MultiJson
+Shale.yaml_adapter = MyYamlAdapter
+        </div>
+      </div>
+      <a href="" class="copy-to-clipboard"></a>
+    </div>
+
+    <p>
+      For XML, Shale provides adapters for most popular Ruby XML parsers:
+    </p>
+
+    <div class="code-section">
+      <div class="code-wrapper">
+        <div
+          class="code code-readonly code-with-gutter"
+          data-mode="ruby"
+          style="height: 240px;"
+        >require 'shale'
+
+# REXML is used by default:
+require 'shale/adapter/rexml'
+Shale.xml_adapter = Shale::Adapter::REXML
+
+# if you want to use Nokogiri:
+require 'shale/adapter/nokogiri'
+Shale.xml_adapter = Shale::Adapter::Nokogiri
+
+# or if you want to use Ox:
+require 'shale/adapter/ox'
+Shale.xml_adapter = Shale::Adapter::Ox
+        </div>
+      </div>
+      <a href="" class="copy-to-clipboard"></a>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+require 'opal/full'
+require 'opal-parser'
+require 'native'
+require 'shale'
+require 'pp'
+
+`
+function formatXml(xml) {
+  let formatted = '';
+  let indent = '';
+
+  xml.split(/>\s*</).forEach(node => {
+      if (node.match(/^\/\w/)) {
+        indent = indent.substring(2);
+      }
+
+      formatted += indent + '<' + node + '>\r\n';
+
+      if (node.match(/^<?\w[^>]*[^\/]$/)) {
+        indent += '  ';
+      }
+  });
+
+  return formatted.substring(1, formatted.length - 3);
+}
+`
+
+module Adapter
+  module DOMParser
+    def self.load(xml)
+      doc = `new DOMParser().parseFromString(xml, 'application/xml')`
+      Node.new(`doc.documentElement`)
+    end
+
+    def self.dump(doc)
+      %x{
+        return formatXml(new XMLSerializer().serializeToString(doc));
+      }
+    end
+
+    def self.create_document
+      Document.new
+    end
+
+    class Document
+      attr_reader :doc
+
+      def initialize
+        @doc = `new Document()`
+      end
+
+      def create_element(name)
+        `#@doc.createElement(name)`
+      end
+
+      def add_attribute(element, name, value)
+        `element.setAttribute(name, value)`
+      end
+
+      def add_element(element, child)
+        `element.appendChild(child)`
+      end
+
+      def add_text(element, text)
+        `element.appendChild(#@doc.createTextNode(text))`
+      end
+    end
+
+    class Node
+      def initialize(node)
+        @node = node
+      end
+
+      def name
+        `#@node.nodeName`
+      end
+
+      def attributes
+        `Array.from(#@node.attributes).map(e => [e.name, e.value])`.to_h
+      end
+
+      def children
+        `Array.from(#@node.childNodes).filter(e => e.nodeType === 1)`.map { |e| self.class.new(e) }
+      end
+
+      def text
+        `const node = Array.from(#@node.childNodes).find(e => e.nodeType === 3)`
+        (`node ? node.textContent : ''`).strip;
+      end
+    end
+  end
+end
+
+module Adapter
+  class JsJSON
+    def self.load(json)
+      ::JSON.parse(json)
+    end
+
+    def self.dump(obj)
+      `JSON.stringify(#{obj.to_n}, null, 2)`
+    end
+  end
+end
+
+module Adapter
+  class JsYAML
+    def self.load(yaml)
+      Hash.new(`jsyaml.load(yaml)`)
+    end
+
+    def self.dump(obj)
+      `jsyaml.dump(#{obj.to_n})`
+    end
+  end
+end
+
+Shale.xml_adapter = Adapter::DOMParser
+Shale.json_adapter = Adapter::JsJSON
+Shale.yaml_adapter = Adapter::JsYAML
