@@ -136,7 +136,8 @@ h1:hover .header-anchor, h2:hover .header-anchor {
 }
 
 .content {
-  max-width: 720px;
+  max-width: 760px;
+  padding: 0 20px;
   margin: 0 auto;
 }
 
