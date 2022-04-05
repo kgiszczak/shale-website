@@ -6,22 +6,32 @@ require 'pp'
 
 `
 function formatXml(xml) {
-  let formatted = '';
-  let indent = '';
+  const NODE_PATTERN = /\s*<[^>\/]*>[^<>]*<\/[^>]*>|\s*<.+?>|\s*[^<]+/g;
+  const indent = '  ';
+  let tabs = '';
 
-  xml.split(/>\s*</).forEach(node => {
-      if (node.match(/^\/\w/)) {
-        indent = indent.substring(2);
-      }
+  return xml.replace(NODE_PATTERN, (m, i) => {
+    m = m.replace(/^\s+|\s+$/g, '');
 
-      formatted += indent + '<' + node + '>\r\n';
+    if (i < 38) {
+      if (/^<[?]xml/.test(m)) return m + '\n';
+    }
 
-      if (node.match(/^<?\w[^>]*[^\/]$/)) {
-        indent += '  ';
-      }
+    if (/^<[/]/.test(m)) {
+      tabs = tabs.replace(indent, '');
+      m = tabs + m;
+    } else if (/<.*>.*<\/.*>|<.*[^>]\/>/.test(m)) {
+      m = m.replace(/(<[^\/>]*)><[\/][^>]*>/g, '$1 />');
+      m = tabs + m;
+    } else if (/<.*>/.test(m)) {
+      m = tabs + m;
+      tabs += indent;
+    } else {
+      m = tabs + m;
+    }
+
+    return m + '\n';
   });
-
-  return formatted.substring(1, formatted.length - 3);
 }
 `
 
@@ -32,10 +42,20 @@ module Adapter
       Node.new(`doc.documentElement`)
     end
 
-    def self.dump(doc)
-      %x{
-        return formatXml(new XMLSerializer().serializeToString(doc));
-      }
+    def self.dump(doc, *options)
+      result = ''
+
+      if options.include?(:declaration)
+        result += '<?xml version="1.0"?>'
+      end
+
+      result += `new XMLSerializer().serializeToString(doc)`
+
+      if options.include?(:pretty)
+        `return formatXml(result)`
+      else
+        result
+      end
     end
 
     def self.create_document
@@ -51,6 +71,9 @@ module Adapter
 
       def create_element(name)
         `#@doc.createElement(name)`
+      end
+
+      def add_namespace(prefix, namespace)
       end
 
       def add_attribute(element, name, value)
@@ -97,8 +120,12 @@ module Adapter
       ::JSON.parse(json)
     end
 
-    def self.dump(obj)
-      `JSON.stringify(#{obj.to_n}, null, 2)`
+    def self.dump(obj, *options)
+      if options.include?(:pretty)
+        `JSON.stringify(#{obj.to_n}, null, 2)`
+      else
+        `JSON.stringify(#{obj.to_n})`
+      end
     end
   end
 end

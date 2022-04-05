@@ -62,7 +62,7 @@ puts doc.to_xml
     <p>
       That's a lot of code for very simple use case.
       Anything more complex and code complexity increases exponentially
-      leading to a maintanace problems and a lot of errors.
+      leading to a maintanace problems and errors.
     </p>
 
     <p>
@@ -111,7 +111,7 @@ puts person.to_xml
     <ul>
       <li>
         <a href="https://www.ruby-lang.org" target="_blank" rel="noopener noreferrer">
-          Ruby 2.6+
+          Ruby 2.7+
         </a>
       </li>
       <li>
@@ -149,7 +149,7 @@ puts person.to_xml
       <li>Out of the box support for JSON, YAML, Nokogiri, REXML and Ox parsers</li>
       <li>Support for custom adapters</li>
       <li>
-        It's pretty performant. Handling JSON is about 15% slower
+        It's pretty performant. Handling JSON is about 20% slower
         than using JSON directly, but for XML it can be a few times faster.
         <a
           href="https://github.com/kgiszczak/shale/tree/master/performance"
@@ -281,7 +281,7 @@ puts person.to_xml
     </h2>
 
     <p>
-      When you define a class and add attributes, underneath Shale creates implicit mapping
+      When you define a class and add attributes, underneath Shale creates an implicit mapping
       of keys (for JSON/YAML) and elements (for XML) to attributes.
       That is nice for setting up your data model quickly, but usually your data format doesn't
       match your data model so cleanly.
@@ -321,7 +321,7 @@ puts person.to_xml
     </div>
 
     <p>
-      XML is more complicated format than JSON and YAML.
+      XML is more complicated format.
     </p>
 
     <ul>
@@ -329,7 +329,7 @@ puts person.to_xml
       <li>To map XML attribute use <code>map_attribute</code></li>
       <li>
         To map XML text node use <code>map_content</code>
-        (it will map first text node in an element)
+        (it will map first text node of an element)
       </li>
       <li>To change the name of the root element use <code>root</code></li>
     </ul>
@@ -349,7 +349,7 @@ puts person.to_xml
 
       <div class="code-section code-section-output">
         <div class="code-wrapper">
-          <div class="code code-readonly" data-mode="ruby" style="height: 80px;">
+          <div class="code code-readonly" data-mode="ruby" style="height: 100px;">
           </div>
         </div>
       </div>
@@ -390,6 +390,59 @@ puts person.to_xml
           </div>
         </div>
       </div>
+    </div>
+
+    <h2 id="supported-types">
+      <a href="#pretty-printing" class="header-anchor">#</a>
+      Pretty printing and XML declaration
+    </h2>
+
+    <p>
+      By default generated JSON and XML are compacted. If you need human readable format use
+      <code>:pretty</code> parameter on <code>#to_json</code> and <code>#to_xml</code>
+    </p>
+
+    <div class="code-section">
+      <div class="code-wrapper">
+        <div
+          class="code code-readonly code-with-gutter"
+          data-mode="ruby"
+          style="height: 180px;"
+        >person.to_json(:pretty)
+# =>
+#
+# {
+#   "name": "John Doe",
+#   "address": {
+#     "city": "London"
+#   }
+# }
+        </div>
+      </div>
+      <a href="" class="copy-to-clipboard"></a>
+    </div>
+
+    <p>
+      You can also add an XML declaration by passing
+      <code>:declaration</code> to <code>#to_xml</code>
+    </p>
+
+    <div class="code-section">
+      <div class="code-wrapper">
+        <div
+          class="code code-readonly code-with-gutter"
+          data-mode="ruby"
+          style="height: 140px;"
+        >person.to_xml(:pretty, :declaration)
+# =>
+#
+# &lt;?xml version="1.0"?&gt;
+# &lt;Person&gt;
+#   &lt;Address city="London"/&gt;
+# &lt;/Person&gt;
+        </div>
+      </div>
+      <a href="" class="copy-to-clipboard"></a>
     </div>
 
     <h2 id="supported-types">
