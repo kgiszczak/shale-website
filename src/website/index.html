@@ -208,7 +208,7 @@ puts person.to_xml
       e.g. <code>Person.from_json(json_doc)</code>
     </p>
 
-    <div id="example-1">
+    <div id="example-data-to-ruby">
       <div class="example-group">
         <strong>Example:</strong>
         <a href="" data-mode="json" class="active-example">JSON to Ruby</a>
@@ -247,7 +247,7 @@ puts person.to_xml
       e.g. <code>Person.new(name: 'John Doe').to_json</code>
     </p>
 
-    <div id="example-2">
+    <div id="example-ruby-to-data">
       <div class="example-group">
         <strong>Example:</strong>
         <a href="" data-mode="json" class="active-example">Ruby to JSON</a>
@@ -292,7 +292,7 @@ puts person.to_xml
       data format to attributes on you Ruby model.
     </p>
 
-    <div id="example-3">
+    <div id="example-custom-mapping">
       <div class="example-group">
         <strong>Example:</strong>
         <a href="" data-mode="json" class="active-example">Ruby to JSON</a>
@@ -334,7 +334,7 @@ puts person.to_xml
       <li>To change the name of the root element use <code>root</code></li>
     </ul>
 
-    <div id="example-4">
+    <div id="example-custom-mapping-xml">
       <div class="code-section code-section-editor">
         <div class="code-wrapper">
           <div class="code code-with-gutter" data-mode="ruby" style="height: 410px;">
@@ -355,6 +355,54 @@ puts person.to_xml
       </div>
     </div>
 
+    <h2 id="using-xml-namespaces">
+      <a href="#using-xml-namespaces" class="header-anchor">#</a> Using XML namespaces
+    </h2>
+
+    <div class="tip">
+      <p class="tip-title">WARNING</p>
+      <p>Ox parser doesn't support XML namespaces</p>
+    </div>
+
+    <p>
+      To map namespaced elements and attributes use
+      <code>namespace</code> and <code>prefix</code> properties on
+      <code>map_element</code> and <code>map_attribute</code>
+    </p>
+
+    <p>
+      To define default namespace for all elements use <code>namespace</code> declaration
+      (this will define namespace only on elements, if you want to define
+      namespace on an attribute, explicitly declare it on <code>map_attribute</code>).
+    </p>
+
+    <div id="example-xml-namespaces">
+      <div class="example-group">
+        <strong>Example:</strong>
+        <a href="" data-mode="xml1" class="active-example">Explicit namespace</a>
+        <a href="" data-mode="xml2">Default namespace</a>
+      </div>
+
+      <div class="code-section code-section-editor">
+        <div class="code-wrapper">
+          <div class="code code-with-gutter" data-mode="ruby" style="height: 530px;">
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <div class="run-button-wrapper">
+        <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+      </div>
+
+      <div class="code-section code-section-output">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="ruby" style="height: 140px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
     <h2 id="using-methods">
       <a href="#using-methods" class="header-anchor">#</a>
       Using methods to extract and generate data
@@ -364,7 +412,7 @@ puts person.to_xml
       If you need full controll over extracting and generating data you can use methods to do so.
     </p>
 
-    <div id="example-5">
+    <div id="example-using-methods">
       <div class="example-group">
         <strong>Example:</strong>
         <a href="" data-mode="json" class="active-example">JSON</a>
@@ -392,7 +440,7 @@ puts person.to_xml
       </div>
     </div>
 
-    <h2 id="supported-types">
+    <h2 id="pretty-printing">
       <a href="#pretty-printing" class="header-anchor">#</a>
       Pretty printing and XML declaration
     </h2>

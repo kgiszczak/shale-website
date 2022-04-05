@@ -29,10 +29,7 @@ class Person < Shale::Mapper
 end
 
 person = Person.from_yaml(<<~DATA)
-hobbies:
-- Singing
-- Dancing
-- Running
+hobbies: Singing, Dancing, Running
 address:
   street: Oxford Street
   city: London

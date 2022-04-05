@@ -63,10 +63,19 @@ module Adapter
     end
 
     class Document
-      attr_reader :doc
-
       def initialize
         @doc = `new Document()`
+        @namespaces = {}
+      end
+
+      def doc
+        if `#@doc.documentElement`
+          @namespaces.each do |prefix, namespace|
+            `#@doc.documentElement.setAttribute('xmlns:' + prefix, namespace)`
+          end
+        end
+
+        @doc
       end
 
       def create_element(name)
@@ -74,6 +83,7 @@ module Adapter
       end
 
       def add_namespace(prefix, namespace)
+        @namespaces[prefix] = namespace if prefix && namespace
       end
 
       def add_attribute(element, name, value)
@@ -95,11 +105,27 @@ module Adapter
       end
 
       def name
-        `#@node.nodeName`
+        %x{
+          if (#@node.namespaceURI) {
+            return #@node.namespaceURI + ':' + #@node.localName;
+          } else {
+            return #@node.localName;
+          }
+        }
       end
 
       def attributes
-        `Array.from(#@node.attributes).map(e => [e.name, e.value])`.to_h
+        %x{
+          Array.from(#@node.attributes).map(e => {
+            let name = e.localName;
+
+            if (e.namespaceURI) {
+              name = e.namespaceURI + ':' + e.localName;
+            }
+
+            return [name, e.value]
+          })
+        }.to_h
       end
 
       def children

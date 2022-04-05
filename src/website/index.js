@@ -8,25 +8,28 @@ import 'ace-builds/src-noconflict/mode-xml';
 import './runtime';
 import './index.css';
 
-import example1Json from './snippets/example1/json.rb';
-import example1Yaml from './snippets/example1/yaml.rb';
-import example1Xml from './snippets/example1/xml.rb';
-import example1Hash from './snippets/example1/hash.rb';
+import exampleDataToRubyJson from './snippets/example-data-to-ruby/json.rb';
+import exampleDataToRubyYaml from './snippets/example-data-to-ruby/yaml.rb';
+import exampleDataToRubyXml from './snippets/example-data-to-ruby/xml.rb';
+import exampleDataToRubyHash from './snippets/example-data-to-ruby/hash.rb';
 
-import example2Json from './snippets/example2/json.rb';
-import example2Yaml from './snippets/example2/yaml.rb';
-import example2Xml from './snippets/example2/xml.rb';
-import example2Hash from './snippets/example2/hash.rb';
+import exampleRubyToDataJson from './snippets/example-ruby-to-data/json.rb';
+import exampleRubyToDataYaml from './snippets/example-ruby-to-data/yaml.rb';
+import exampleRubyToDataXml from './snippets/example-ruby-to-data/xml.rb';
+import exampleRubyToDataHash from './snippets/example-ruby-to-data/hash.rb';
 
-import example3Json from './snippets/example3/json.rb';
-import example3Yaml from './snippets/example3/yaml.rb';
-import example3Hash from './snippets/example3/hash.rb';
+import exampleCustomMappingJson from './snippets/example-custom-mapping/json.rb';
+import exampleCustomMappingYaml from './snippets/example-custom-mapping/yaml.rb';
+import exampleCustomMappingHash from './snippets/example-custom-mapping/hash.rb';
 
-import example4Xml from './snippets/example4/xml.rb';
+import exampleCustomMappingXml from './snippets/example-custom-mapping-xml/xml.rb';
 
-import example5Json from './snippets/example5/json.rb';
-import example5Yaml from './snippets/example5/yaml.rb';
-import example5Xml from './snippets/example5/xml.rb';
+import exampleXmlNamespaces1 from './snippets/example-xml-namespaces/xml1.rb';
+import exampleXmlNamespaces2 from './snippets/example-xml-namespaces/xml2.rb';
+
+import exampleUsingMethodsJson from './snippets/example-using-methods/json.rb';
+import exampleUsingMethodsYaml from './snippets/example-using-methods/yaml.rb';
+import exampleUsingMethodsXml from './snippets/example-using-methods/xml.rb';
 
 ace.config.setModuleUrl(
   'ace/mode/json_worker',
@@ -45,11 +48,11 @@ function run(outputEditor, codeEditor) {
 
     begin
       def p(obj)
-        $webout << obj.inspect
+        $webout << (obj || '').inspect
       end
 
       def puts(obj)
-        $webout << obj.to_s
+        $webout << (obj || '').to_s
       end
 
       def pp(obj)
@@ -164,33 +167,38 @@ window.addEventListener('DOMContentLoaded', () => {
     createEditor(el, true);
   });
 
-  initExample('#example-1', 'json', {
-    json: { snippet: example1Json, outputMode: 'ruby' },
-    yaml: { snippet: example1Yaml, outputMode: 'ruby' },
-    xml: { snippet: example1Xml, outputMode: 'ruby' },
-    ruby: { snippet: example1Hash, outputMode: 'ruby' },
+  initExample('#example-data-to-ruby', 'json', {
+    json: { snippet: exampleDataToRubyJson, outputMode: 'ruby' },
+    yaml: { snippet: exampleDataToRubyYaml, outputMode: 'ruby' },
+    xml: { snippet: exampleDataToRubyXml, outputMode: 'ruby' },
+    ruby: { snippet: exampleDataToRubyHash, outputMode: 'ruby' },
   });
 
-  initExample('#example-2', 'json', {
-    json: { snippet: example2Json, outputMode: 'json' },
-    yaml: { snippet: example2Yaml, outputMode: 'yaml' },
-    xml: { snippet: example2Xml, outputMode: 'xml' },
-    ruby: { snippet: example2Hash, outputMode: 'ruby' },
+  initExample('#example-ruby-to-data', 'json', {
+    json: { snippet: exampleRubyToDataJson, outputMode: 'json' },
+    yaml: { snippet: exampleRubyToDataYaml, outputMode: 'yaml' },
+    xml: { snippet: exampleRubyToDataXml, outputMode: 'xml' },
+    ruby: { snippet: exampleRubyToDataHash, outputMode: 'ruby' },
   });
 
-  initExample('#example-3', 'json', {
-    json: { snippet: example3Json, outputMode: 'json' },
-    yaml: { snippet: example3Yaml, outputMode: 'yaml' },
-    ruby: { snippet: example3Hash, outputMode: 'ruby' },
+  initExample('#example-custom-mapping', 'json', {
+    json: { snippet: exampleCustomMappingJson, outputMode: 'json' },
+    yaml: { snippet: exampleCustomMappingYaml, outputMode: 'yaml' },
+    ruby: { snippet: exampleCustomMappingHash, outputMode: 'ruby' },
   });
 
-  initExample('#example-4', 'xml', {
-    xml: { snippet: example4Xml, outputMode: 'xml' },
+  initExample('#example-custom-mapping-xml', 'xml', {
+    xml: { snippet: exampleCustomMappingXml, outputMode: 'xml' },
   });
 
-  initExample('#example-5', 'json', {
-    json: { snippet: example5Json, outputMode: 'ruby' },
-    yaml: { snippet: example5Yaml, outputMode: 'ruby' },
-    xml: { snippet: example5Xml, outputMode: 'ruby' },
+  initExample('#example-xml-namespaces', 'xml1', {
+    xml1: { snippet: exampleXmlNamespaces1, outputMode: 'ruby' },
+    xml2: { snippet: exampleXmlNamespaces2, outputMode: 'ruby' },
+  });
+
+  initExample('#example-using-methods', 'json', {
+    json: { snippet: exampleUsingMethodsJson, outputMode: 'ruby' },
+    yaml: { snippet: exampleUsingMethodsYaml, outputMode: 'ruby' },
+    xml: { snippet: exampleUsingMethodsXml, outputMode: 'ruby' },
   });
 });
