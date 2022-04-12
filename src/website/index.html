@@ -512,7 +512,7 @@ puts person.to_xml
 
     <p>
       To add your own type extend defina a class and extend it from
-      <code>Shale::Type::Base</code> and implement <code>.cast</code> class method.
+      <code>Shale::Type::Value</code> and implement <code>.cast</code> class method.
     </p>
 
     <div class="code-section">
@@ -521,9 +521,9 @@ puts person.to_xml
           class="code code-readonly code-with-gutter"
           data-mode="ruby"
           style="height: 140px;"
-        >require 'shale/type/base'
+        >require 'shale/type/value'
 
-class MyIntegerType &lt; Shale::Type::Base
+class MyIntegerType &lt; Shale::Type::Value
   def self.cast(value)
     value.to_i
   end
