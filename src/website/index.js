@@ -31,6 +31,8 @@ import exampleUsingMethodsJson from './snippets/example-using-methods/json.rb';
 import exampleUsingMethodsYaml from './snippets/example-using-methods/yaml.rb';
 import exampleUsingMethodsXml from './snippets/example-using-methods/xml.rb';
 
+import exampleSchemaJson from './snippets/example-schema/json.rb';
+
 ace.config.setModuleUrl(
   'ace/mode/json_worker',
   require('file-loader?esModule=false!ace-builds/src-noconflict/worker-json.js'),
@@ -200,5 +202,9 @@ window.addEventListener('DOMContentLoaded', () => {
     json: { snippet: exampleUsingMethodsJson, outputMode: 'ruby' },
     yaml: { snippet: exampleUsingMethodsYaml, outputMode: 'ruby' },
     xml: { snippet: exampleUsingMethodsXml, outputMode: 'ruby' },
+  });
+
+  initExample('#example-schema', 'json', {
+    json: { snippet: exampleSchemaJson, outputMode: 'json' },
   });
 });
