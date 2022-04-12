@@ -165,6 +165,27 @@ function initExample(exampleId, defaultMode, examples) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('scroll', () => {
+    const chapters = document.querySelectorAll('.header-anchor');
+    const links = document.querySelectorAll(`.index-nav a`)
+
+    let activeChapterId = null;
+
+    chapters.forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight / 3) {
+        activeChapterId = el.href;
+      }
+    });
+
+    links.forEach(el => {
+      el.classList.remove('active');
+
+      if (el.href === activeChapterId) {
+        el.classList.add('active');
+      }
+    });
+  });
+
   document.querySelectorAll('.code-section').forEach(el => {
     createEditor(el, true);
   });
