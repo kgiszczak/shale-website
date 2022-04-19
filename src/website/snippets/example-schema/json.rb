@@ -1,4 +1,5 @@
 require 'shale'
+require 'shale/schema'
 
 class Address < Shale::Mapper
   attribute :city, Shale::Type::String
@@ -9,7 +10,7 @@ class Person < Shale::Mapper
   attribute :address, Address
 end
 
-puts Shale.schema.to_json(
+puts Shale::Schema.to_json(
   Person,
   id: 'My ID',
   description: 'My description',

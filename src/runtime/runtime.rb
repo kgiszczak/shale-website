@@ -2,6 +2,7 @@ require 'opal/full'
 require 'opal-parser'
 require 'native'
 require 'shale'
+require 'shale/schema'
 require 'pp'
 
 `

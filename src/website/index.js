@@ -33,6 +33,8 @@ import exampleUsingMethodsXml from './snippets/example-using-methods/xml.rb';
 
 import exampleSchemaJson from './snippets/example-schema/json.rb';
 
+import exampleSchemaCustomTypesJson from './snippets/example-schema-custom-types/json.rb';
+
 ace.config.setModuleUrl(
   'ace/mode/json_worker',
   require('file-loader?esModule=false!ace-builds/src-noconflict/worker-json.js'),
@@ -227,5 +229,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   initExample('#example-schema', 'json', {
     json: { snippet: exampleSchemaJson, outputMode: 'json' },
+  });
+
+  initExample('#example-schema-custom-types', 'json', {
+    json: { snippet: exampleSchemaCustomTypesJson, outputMode: 'json' },
   });
 });
