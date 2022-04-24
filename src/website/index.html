@@ -33,7 +33,7 @@
         <a href="#using-xml-namespaces">XML namespaces</a>
         <a href="#using-methods">Using methods</a>
         <a href="#pretty-printing">Pretty printing</a>
-        <a href="#json-schema">JSON Schema</a>
+        <a href="#json-and-xml-schema">JSON and XML Schema</a>
         <a href="#supported-types">Supported types</a>
         <a href="#adapters">Adapters</a>
       </div>
@@ -165,7 +165,7 @@ puts person.to_xml
       <ul>
         <li>Convert JSON, YAML and XML to Ruby</li>
         <li>Convert Ruby to JSON, YAML and XML</li>
-        <li>Generate JSON Schema from Ruby models</li>
+        <li>Generate JSON and XML Schema from Ruby models</li>
         <li>Out of the box support for JSON, YAML, Nokogiri, REXML and Ox parsers</li>
         <li>Support for custom adapters</li>
         <li>
@@ -513,15 +513,21 @@ puts person.to_xml
         <a href="" class="copy-to-clipboard"></a>
       </div>
 
-      <h2 id="json-schema">
-        <a href="#json-schema" class="header-anchor">#</a> JSON Schema
+      <h2 id="json-and-xml-schema">
+        <a href="#json-and-xml-schema" class="header-anchor">#</a> JSON and XML Schema
       </h2>
 
       <p>
-        To generate JSON Schema from you Shale data model use:
+        To generate JSON or XML Schema from you Shale data model use:
       </p>
 
       <div id="example-schema">
+        <div class="example-group">
+          <strong>Example:</strong>
+          <a href="" data-mode="json" class="active-example">JSON</a>
+          <a href="" data-mode="xml">XML</a>
+        </div>
+
         <div class="code-section code-section-editor">
           <div class="code-wrapper">
             <div class="code code-with-gutter" data-mode="ruby" style="height: 310px;">
@@ -547,15 +553,21 @@ puts person.to_xml
       <div class="code-section">
         <div class="code-wrapper">
           <div class="code code-readonly" data-mode="sh" style="height: 50px;">
-  $ shaleb -i data_model.rb -c Person -p
+  $ shaleb -i data_model.rb -c Person -p -f json
           </div>
         </div>
         <a href="" class="copy-to-clipboard"></a>
       </div>
 
-      <p>If you want to convert your own types to JSON Schema types use:</p>
+      <p>If you want to convert your own types to Schema types use:</p>
 
       <div id="example-schema-custom-types">
+        <div class="example-group">
+          <strong>Example:</strong>
+          <a href="" data-mode="json" class="active-example">JSON</a>
+          <a href="" data-mode="xml">XML</a>
+        </div>
+
         <div class="code-section code-section-editor">
           <div class="code-wrapper">
             <div class="code code-with-gutter" data-mode="ruby" style="height: 360px;">
