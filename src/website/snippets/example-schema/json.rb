@@ -12,7 +12,7 @@ end
 
 puts Shale::Schema.to_json(
   Person,
-  id: 'My ID',
+  id: 'http://foo.bar/schema/person',
   description: 'My description',
   pretty: true
 )
