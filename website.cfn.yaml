@@ -113,6 +113,27 @@ Resources:
           Compress: true
           ViewerProtocolPolicy: redirect-to-https
           TargetOriginId: Bucket
+        CacheBehaviors:
+          - AllowedMethods:
+              - GET
+              - HEAD
+            CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # CachingOptimized
+            PathPattern: /js/script.js
+            ViewerProtocolPolicy: https-only
+            TargetOriginId: AnalyticsProxy
+          - AllowedMethods:
+              - GET
+              - HEAD
+              - OPTIONS
+              - PUT
+              - PATCH
+              - POST
+              - DELETE
+            CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad # CachingDisabled
+            OriginRequestPolicyId: acba4595-bd28-49b8-b9fe-13317c0390fa # UserAgentRefererHeaders
+            PathPattern: /api/event
+            ViewerProtocolPolicy: https-only
+            TargetOriginId: AnalyticsProxy
         Origins:
           - Id: Bucket
             DomainName: !GetAtt WebsiteBucket.DomainName
@@ -122,6 +143,10 @@ Resources:
                 - - origin-access-identity
                   - cloudfront
                   - !Ref OriginAccessIdentity
+          - Id: AnalyticsProxy
+            DomainName: plausible.io
+            CustomOriginConfig:
+              OriginProtocolPolicy: https-only
         Logging:
           Bucket: !Join
             - .
