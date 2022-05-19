@@ -4,7 +4,7 @@ require 'shale/schema'
 class EmailType < Shale::Type::Value
 end
 
-class EmailTypeJSON < Shale::Schema::JSON::Base
+class EmailTypeJSON < Shale::Schema::JSONGenerator::Base
   def as_type
     { 'type' => 'string', 'format' => 'email' }
   end
@@ -15,6 +15,6 @@ class Person < Shale::Mapper
   attribute :email, EmailType
 end
 
-Shale::Schema::JSON.register_json_type(EmailType, EmailTypeJSON)
+Shale::Schema::JSONGenerator.register_json_type(EmailType, EmailTypeJSON)
 
 puts Shale::Schema.to_json(Person, pretty: true)

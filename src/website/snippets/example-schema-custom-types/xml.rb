@@ -9,7 +9,7 @@ class Person < Shale::Mapper
   attribute :age, ByteType
 end
 
-Shale::Schema::XML.register_xml_type(ByteType, 'byte')
+Shale::Schema::XMLGenerator.register_xml_type(ByteType, 'byte')
 
 Shale::Schema.to_xml(Person, pretty: true).each do |name, xml|
   puts "<!-- #{name} -->"
