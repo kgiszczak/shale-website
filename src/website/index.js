@@ -31,11 +31,13 @@ import exampleUsingMethodsJson from './snippets/example-using-methods/json.rb';
 import exampleUsingMethodsYaml from './snippets/example-using-methods/yaml.rb';
 import exampleUsingMethodsXml from './snippets/example-using-methods/xml.rb';
 
-import exampleSchemaJson from './snippets/example-schema/json.rb';
-import exampleSchemaXml from './snippets/example-schema/xml.rb';
+import exampleGeneratingSchemaJson from './snippets/example-generating-schema/json.rb';
+import exampleGeneratingSchemaXml from './snippets/example-generating-schema/xml.rb';
 
-import exampleSchemaCustomTypesJson from './snippets/example-schema-custom-types/json.rb';
-import exampleSchemaCustomTypesXml from './snippets/example-schema-custom-types/xml.rb';
+import exampleGeneratingSchemaCustomTypesJson from './snippets/example-generating-schema-custom-types/json.rb';
+import exampleGeneratingSchemaCustomTypesXml from './snippets/example-generating-schema-custom-types/xml.rb';
+
+import exampleCompilingSchemaJson from './snippets/example-compiling-schema/json.rb';
 
 ace.config.setModuleUrl(
   'ace/mode/json_worker',
@@ -229,13 +231,17 @@ window.addEventListener('DOMContentLoaded', () => {
     xml: { snippet: exampleUsingMethodsXml, outputMode: 'ruby' },
   });
 
-  initExample('#example-schema', 'json', {
-    json: { snippet: exampleSchemaJson, outputMode: 'json' },
-    xml: { snippet: exampleSchemaXml, outputMode: 'xml' },
+  initExample('#example-generating-schema', 'json', {
+    json: { snippet: exampleGeneratingSchemaJson, outputMode: 'json' },
+    xml: { snippet: exampleGeneratingSchemaXml, outputMode: 'xml' },
   });
 
-  initExample('#example-schema-custom-types', 'json', {
-    json: { snippet: exampleSchemaCustomTypesJson, outputMode: 'json' },
-    xml: { snippet: exampleSchemaCustomTypesXml, outputMode: 'xml' },
+  initExample('#example-generating-schema-custom-types', 'json', {
+    json: { snippet: exampleGeneratingSchemaCustomTypesJson, outputMode: 'json' },
+    xml: { snippet: exampleGeneratingSchemaCustomTypesXml, outputMode: 'xml' },
+  });
+
+  initExample('#example-compiling-schema', 'json', {
+    json: { snippet: exampleCompilingSchemaJson, outputMode: 'ruby' },
   });
 });

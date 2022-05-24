@@ -35,7 +35,8 @@
         <a href="#using-xml-namespaces">XML namespaces</a>
         <a href="#using-methods">Using methods</a>
         <a href="#pretty-printing">Pretty printing</a>
-        <a href="#json-and-xml-schema">JSON and XML Schema</a>
+        <a href="#generating-json-and-xml-schema">Generating Schema</a>
+        <a href="#compiling-json-and-xml-schema">Compiling Schema</a>
         <a href="#supported-types">Supported types</a>
         <a href="#adapters">Adapters</a>
       </div>
@@ -178,14 +179,15 @@ puts person.to_xml
       </h2>
 
       <ul>
-        <li>Convert JSON, YAML and XML to Ruby</li>
-        <li>Convert Ruby to JSON, YAML and XML</li>
+        <li>Convert JSON, YAML and XML to Ruby data model</li>
+        <li>Convert Ruby data model to JSON, YAML and XML</li>
         <li>Generate JSON and XML Schema from Ruby models</li>
+        <li>Compile JSON Schema into Ruby models</li>
         <li>Out of the box support for JSON, YAML, Nokogiri, REXML and Ox parsers</li>
         <li>Support for custom adapters</li>
         <li>
-          It's pretty performant. Handling JSON is about 20% slower
-          than using JSON directly, but for XML it can be a few times faster.
+          Created with performance in mind. Handling JSON is about 20% slower
+          than using JSON directly, but for XML it can be much faster.
           <a
             href="https://github.com/kgiszczak/shale/tree/master/performance"
             target="_blank"
@@ -528,8 +530,9 @@ puts person.to_xml
         <a href="" class="copy-to-clipboard"></a>
       </div>
 
-      <h2 id="json-and-xml-schema">
-        <a href="#json-and-xml-schema" class="header-anchor">#</a> JSON and XML Schema
+      <h2 id="generating-json-and-xml-schema">
+        <a href="#generating-json-and-xml-schema" class="header-anchor">#</a>
+        Generating JSON and XML Schema
       </h2>
 
       <div class="tip">
@@ -541,7 +544,7 @@ puts person.to_xml
         To generate JSON or XML Schema from you Shale data model use:
       </p>
 
-      <div id="example-schema">
+      <div id="example-generating-schema">
         <div class="example-group">
           <strong>Example:</strong>
           <a href="" data-mode="json" class="active-example">JSON</a>
@@ -550,7 +553,7 @@ puts person.to_xml
 
         <div class="code-section code-section-editor">
           <div class="code-wrapper">
-            <div class="code code-with-gutter" data-mode="ruby" style="height: 310px;">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 325px;">
             </div>
           </div>
           <a href="" class="copy-to-clipboard"></a>
@@ -573,7 +576,18 @@ puts person.to_xml
       <div class="code-section">
         <div class="code-wrapper">
           <div class="code code-readonly" data-mode="sh" style="height: 50px;">
-  $ shaleb -i data_model.rb -c Person -p -f json
+  $ shaleb -i data_model.rb -r Person -p -f json
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <p>or XML Schema:</p>
+
+      <div class="code-section">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="sh" style="height: 50px;">
+  $ shaleb -i data_model.rb -r Person -p -f xml
           </div>
         </div>
         <a href="" class="copy-to-clipboard"></a>
@@ -581,7 +595,7 @@ puts person.to_xml
 
       <p>If you want to convert your own types to Schema types use:</p>
 
-      <div id="example-schema-custom-types">
+      <div id="example-generating-schema-custom-types">
         <div class="example-group">
           <strong>Example:</strong>
           <a href="" data-mode="json" class="active-example">JSON</a>
@@ -606,6 +620,52 @@ puts person.to_xml
             </div>
           </div>
         </div>
+      </div>
+
+      <h2 id="compiling-json-and-xml-schema">
+        <a href="#compiling-json-and-xml-schema" class="header-anchor">#</a>
+        Compiling JSON Schema
+      </h2>
+
+      <p>
+        To compile JSON Schema and generate Ruby data model use:
+      </p>
+
+      <div id="example-compiling-schema">
+        <div class="example-group">
+          <strong>Example:</strong>
+          <a href="" data-mode="json" class="active-example">JSON</a>
+        </div>
+
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 430px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="ruby" style="height: 500px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>You can also use a command line tool to do it:</p>
+
+      <div class="code-section">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="sh" style="height: 50px;">
+  $ shaleb -c -i schema.json -r Person
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
       </div>
 
       <h2 id="supported-types">

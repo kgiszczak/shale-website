@@ -1,4 +1,5 @@
 /node_modules/
 /dist/
 /src/runtime/shale/
+/src/runtime/opal-uri/
 /src/website/runtime.js

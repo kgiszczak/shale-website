@@ -1,6 +1,57 @@
 require 'opal/full'
 require 'opal-parser'
 require 'native'
+require 'template'
+require 'ostruct'
+
+class String
+  def dump
+    "\"#{self}\""
+  end
+end
+
+module Opal
+  module ERB
+    class Compiler
+      def find_contents(result)
+        result = result
+          .gsub(/\n\s+<%-/, '<%')
+          .gsub(/\n<%-/, '<%')
+          .gsub(/<%-/, '<%')
+          .gsub(/-%>/, '%>')
+
+        result.gsub(/<%=([\s\S]+?)%>/) do
+          inner = Regexp.last_match(1).gsub(/\\'/, "'").gsub(/\\"/, '"')
+
+          if inner =~ BLOCK_EXPR
+            "\")\noutput_buffer.append= #{inner}\noutput_buffer.append(\""
+          else
+            "\")\noutput_buffer.append=(#{inner})\noutput_buffer.append(\""
+          end
+        end
+      end
+    end
+  end
+end
+
+class ERB
+  def initialize(source, trim_mode: nil)
+    @id = rand(99999).to_s
+    template = Opal::ERB.compile(source, @id)
+    `eval(#{template})`
+  end
+
+  def result(bnd)
+    context = OpenStruct.new
+
+    bnd.local_variables.each do |var|
+      context[var] = bnd.local_variable_get(var)
+    end
+
+    Template[@id].render(context)
+  end
+end
+
 require 'shale'
 require 'shale/schema'
 require 'pp'
