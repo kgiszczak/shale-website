@@ -385,11 +385,6 @@ puts person.to_xml
         <a href="#using-xml-namespaces" class="header-anchor">#</a> Using XML namespaces
       </h2>
 
-      <div class="tip">
-        <p class="tip-title">WARNING</p>
-        <p>Ox parser doesn't support XML namespaces</p>
-      </div>
-
       <p>
         To map namespaced elements and attributes use
         <code>namespace</code> and <code>prefix</code> properties on
@@ -730,6 +725,11 @@ Shale.yaml_adapter = MyYamlAdapter
       <p>
         For XML, Shale provides adapters for most popular Ruby XML parsers:
       </p>
+
+      <div class="tip">
+        <p class="tip-title">WARNING</p>
+        <p>Ox parser doesn't support XML namespaces</p>
+      </div>
 
       <div class="code-section">
         <div class="code-wrapper">
