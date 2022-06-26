@@ -149,29 +149,38 @@ puts person.to_xml
             Ruby 2.7+
           </a>
         </li>
+      </ul>
+
+      <p>If you want to work with XML you will need one of:</p>
+
+      <ul>
+        <li>
+          <a href="https://github.com/ruby/rexml" target="_blank" rel="noopener noreferrer">
+            REXML
+          </a>
+        </li>
         <li>
           <a href="https://nokogiri.org" target="_blank" rel="noopener noreferrer">
             Nokogiri
           </a>
-          (Optional)
         </li>
         <li>
           <a href="https://github.com/ohler55/ox" target="_blank" rel="noopener noreferrer">
             Ox
           </a>
-          (Optional)
         </li>
       </ul>
 
       <p>
         Shale doesn't have external dependencies. It uses standard library's
-        <code>JSON</code>, <code>YAML</code> and <code>REXML</code> parsers by default.
+        <code>JSON</code> and <code>YAML</code> parsers by default.
       </p>
 
       <p>
-        If you need more performant solutions you can use custom libraries.
-        Out of the box, Shale provides adapters for <code>Nokogiri</code> and <code>Ox</code>
-        - <a href="#adapters">see how to use them</a>.
+        If you need more customizations you can use custom libraries.
+        Out of the box, Shale provides adapters for
+        <code>REXML</code>, <code>Nokogiri</code> and <code>Ox</code>,
+        but you can provide your own adapters - <a href="#adapters">see how to</a>.
       </p>
 
       <h2 id="features">
@@ -227,6 +236,21 @@ puts person.to_xml
       <h2 id="convert-data-to-ruby">
         <a href="#convert-data-to-ruby" class="header-anchor">#</a> Convert data to Ruby
       </h2>
+
+      <p>
+        JSON and YAML are supported by default, but to work with XML you need to install XML
+        parser and setup adapter. For example to setup REXML as an adapter use:
+      </p>
+
+      <div class="code-section">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="ruby" style="height: 70px;">
+  require 'shale/adapter/rexml'
+  Shale.xml_adapter = Shale::Adapter::REXML
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
 
       <p>
         Converting data to Ruby is as simple as defining model classes and calling
@@ -384,6 +408,12 @@ puts person.to_xml
       <h2 id="using-xml-namespaces">
         <a href="#using-xml-namespaces" class="header-anchor">#</a> Using XML namespaces
       </h2>
+
+      <p>
+        To Work with XML namespaces you need to use adapter that supports XML namespaces.
+        Use one of <code>Shale::Adapter::REXML</code> or <code>Shale::Adapter::Nokogiri</code>.
+        <code>Shale::Adapter::Ox</code> doesn't support namespaces.
+      </p>
 
       <p>
         To map namespaced elements and attributes use
@@ -608,22 +638,23 @@ puts person.to_xml
 
       <h2 id="compiling-json-and-xml-schema">
         <a href="#compiling-json-and-xml-schema" class="header-anchor">#</a>
-        Compiling JSON Schema
+        Compiling JSON and XML Schema
       </h2>
 
       <p>
-        To compile JSON Schema and generate Ruby data model use:
+        To compile JSON or XML Schema and generate Ruby data model use:
       </p>
 
       <div id="example-compiling-schema">
         <div class="example-group">
           <strong>Example:</strong>
           <a href="" data-mode="json" class="active-example">JSON</a>
+          <a href="" data-mode="xml">XML</a>
         </div>
 
         <div class="code-section code-section-editor">
           <div class="code-wrapper">
-            <div class="code code-with-gutter" data-mode="ruby" style="height: 430px;">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 450px;">
             </div>
           </div>
           <a href="" class="copy-to-clipboard"></a>
@@ -635,18 +666,29 @@ puts person.to_xml
 
         <div class="code-section code-section-output">
           <div class="code-wrapper">
-            <div class="code code-readonly" data-mode="ruby" style="height: 500px;">
+            <div class="code code-readonly" data-mode="ruby" style="height: 560px;">
             </div>
           </div>
         </div>
       </div>
 
-      <p>You can also use a command line tool to do it:</p>
+      <p>You can also use a command line tool to do it (JSON Schema):</p>
 
       <div class="code-section">
         <div class="code-wrapper">
           <div class="code code-readonly" data-mode="sh" style="height: 50px;">
   $ shaleb -c -i schema.json -r Person
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <p>and XML Schema:</p>
+
+      <div class="code-section">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="sh" style="height: 50px;">
+  $ shaleb -c -f xml -i schema.xml
           </div>
         </div>
         <a href="" class="copy-to-clipboard"></a>
@@ -698,8 +740,8 @@ end
 
       <p>
         Shale uses adapters for parsing and generating documents.
-        By default Ruby's standard JSON parser is used for handling JSON documents,
-        YAML for YAML and REXML for XML.
+        By default Ruby's standard JSON and YAML parsers are
+        used for handling JSON and YAML documents.
       </p>
       <p>
         You can change it by providing your own adapter. For JSON and YAML, adapter must implement
@@ -723,7 +765,8 @@ Shale.yaml_adapter = MyYamlAdapter
       </div>
 
       <p>
-        For XML, Shale provides adapters for most popular Ruby XML parsers:
+        To handle XML documents you have to explicitly set XML adapter.
+        Shale provides adapters for most popular Ruby XML parsers:
       </p>
 
       <div class="tip">
@@ -739,7 +782,7 @@ Shale.yaml_adapter = MyYamlAdapter
             style="height: 240px;"
           >require 'shale'
 
-# REXML is used by default:
+# if you want to use REXML:
 require 'shale/adapter/rexml'
 Shale.xml_adapter = Shale::Adapter::REXML
 

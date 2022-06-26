@@ -38,6 +38,7 @@ import exampleGeneratingSchemaCustomTypesJson from './snippets/example-generatin
 import exampleGeneratingSchemaCustomTypesXml from './snippets/example-generating-schema-custom-types/xml.rb';
 
 import exampleCompilingSchemaJson from './snippets/example-compiling-schema/json.rb';
+import exampleCompilingSchemaXml from './snippets/example-compiling-schema/xml.rb';
 
 ace.config.setModuleUrl(
   'ace/mode/json_worker',
@@ -243,5 +244,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   initExample('#example-compiling-schema', 'json', {
     json: { snippet: exampleCompilingSchemaJson, outputMode: 'ruby' },
+    xml: { snippet: exampleCompilingSchemaXml, outputMode: 'ruby' },
   });
 });

@@ -156,6 +156,22 @@ module Adapter
         @node = node
       end
 
+      def namespaces
+        nsps = {}
+
+        attributes.each do |key, value|
+          result = key.rpartition(':')
+          nsp = result[0]
+          name = result[-1]
+
+          if nsp == 'http://www.w3.org/2000/xmlns/'
+            nsps[name] = value
+          end
+        end
+
+        nsps
+      end
+
       def name
         %x{
           if (#@node.namespaceURI) {
@@ -182,6 +198,13 @@ module Adapter
 
       def children
         `Array.from(#@node.childNodes).filter(e => e.nodeType === 1)`.map { |e| self.class.new(e) }
+      end
+
+      def parent
+        parent = `#@node.parentNode`
+        is_document = `parent instanceof Document`
+
+        self.class.new(parent) if parent && !is_document
       end
 
       def text
