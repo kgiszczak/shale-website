@@ -138,6 +138,8 @@ function initExample(exampleId, defaultMode, examples) {
   const codeEl = document.querySelector(`${exampleId} .code-section-editor`);
   const outputEl = document.querySelector(`${exampleId} .code-section-output`);
 
+  if (!codeEl) return;
+
   const codeEditor = createEditor(codeEl);
   const outputEditor = createEditor(outputEl, true);
 
@@ -244,6 +246,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   initExample('#example-compiling-schema', 'json', {
     json: { snippet: exampleCompilingSchemaJson, outputMode: 'ruby' },
+    xml: { snippet: exampleCompilingSchemaXml, outputMode: 'ruby' },
+  });
+
+  initExample('#example-release-v050-compiling-schema', 'xml', {
     xml: { snippet: exampleCompilingSchemaXml, outputMode: 'ruby' },
   });
 });

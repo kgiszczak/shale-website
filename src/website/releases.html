@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shale - Ruby object mapper and serializer for XML, JSON and YAML">
+  <title>Shale - Ruby object mapper and serializer for XML, JSON and YAML</title>
+<% if (webpackConfig.mode === 'production') { %>
+  <script defer data-domain="shalerb.org" src="/js/script.js"></script>
+<% } %>
+</head>
+<body>
+  <header class="navbar">
+    <a href="/" class="home-link">Shale</a>
+    <div class="links">
+      <a href="/">
+        Docs
+      </a>
+      <a class="active" href="/releases.html">
+        Releases
+      </a>
+      <a href="https://github.com/kgiszczak/shale" target="_blank" rel="noopener noreferrer">
+        GitHub
+      </a>
+      <a href="https://rubygems.org/gems/shale" target="_blank" rel="noopener noreferrer">
+        RubyGems
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="index">
+      <div class="index-nav">
+        <h4>CONTENTS</h4>
+        <a class="active" href="#v050">v0.5.0</a>
+      </div>
+    </div>
+    <div class="content">
+      <h1 id="releases">
+        <a href="#releases" class="header-anchor">#</a> Releases
+      </h1>
+
+      <h2 id="v050">
+        <a href="#v050" class="header-anchor">#</a> v0.5.0
+      </h2>
+
+      <p>What's new:</p>
+
+      <ul>
+        <li>You can now generate Shale model from XML Schema</li>
+      </ul>
+
+      <div id="example-release-v050-compiling-schema">
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 520px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="ruby" style="height: 560px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>What's changed:</p>
+
+      <ul>
+        <li>Drop support for Ruby 2.6</li>
+        <li>
+          Due to REXML being promoted to bundled gems in
+          <a
+            href="https://www.ruby-lang.org/en/news/2020/09/25/ruby-3-0-0-preview1-released/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ruby 3
+          </a>
+          Shale doesn't set REXML as a default XML parser.
+          To work with XML documents, XML adapter needs to be set explicitly e.g.
+        </li>
+      </ul>
+
+      <div class="code-section">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="ruby" style="height: 70px;">
+  require 'shale/adapter/rexml'
+  Shale.xml_adapter = Shale::Adapter::REXML
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

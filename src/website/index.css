@@ -136,9 +136,13 @@ h1:hover .header-anchor, h2:hover .header-anchor {
   padding-right: 20px;
 }
 
+.navbar .links a.active, .navbar .links a:hover {
+  color: #3eaf7c;
+}
+
 main {
   max-width: 960px;
-  margin: 0 auto;
+  margin: 0 auto 50px auto;
   display: grid;
   grid-template-columns: 200px auto;
 }

@@ -26,6 +26,11 @@ module.exports = {
       template: 'src/website/index.html',
       minify: false,
     }),
+    new HtmlWebpackPlugin({
+      template: 'src/website/releases.html',
+      filename: 'releases.html',
+      minify: false,
+    }),
     new HtmlInlineScriptPlugin(),
     new ProvidePlugin({
       jsyaml: 'js-yaml',
