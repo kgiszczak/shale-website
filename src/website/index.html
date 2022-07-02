@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Shale - Ruby object mapper and serializer for XML, JSON and YAML">
-  <title>Shale - Ruby object mapper and serializer for XML, JSON and YAML</title>
+  <title>Shale - Ruby object mapper and serializer for XML, JSON, TOML and YAML</title>
 <% if (webpackConfig.mode === 'production') { %>
   <script defer data-domain="shalerb.org" src="/js/script.js"></script>
 <% } %>
@@ -55,12 +55,12 @@
       </h1>
 
       <p>
-        <strong>Shale</strong> is a Ruby object mapper and serializer for JSON, YAML and XML.
+        <strong>Shale</strong> is a Ruby object mapper and serializer for JSON, YAML, TOML and XML.
       </p>
 
       <p>
-        It allows you to parse JSON, YAML and XML data and convert it into Ruby data structures,
-        as well as serialize data structures into JSON, YAML or XML.
+        It allows you to parse JSON, YAML, TOML and XML data and convert it into Ruby data
+        structures, as well as serialize data structures into JSON, YAML, TOML or XML.
       </p>
 
       <h2 id="introduction">
@@ -110,7 +110,7 @@ puts doc.to_xml
 
       <p>
         With Shale you can use Ruby objects to work with data
-        converting it to/from JSON, YAML or XML.
+        converting it to/from JSON, YAML, TOML or XML.
       </p>
 
       <p>
@@ -179,6 +179,16 @@ puts person.to_xml
         </li>
       </ul>
 
+      <p>If you want to work with TOML you will need:</p>
+
+      <ul>
+        <li>
+          <a href="https://github.com/emancu/toml-rb" target="_blank" rel="noopener noreferrer">
+            toml-rb
+          </a>
+        </li>
+      </ul>
+
       <p>
         Shale doesn't have external dependencies. It uses standard library's
         <code>JSON</code> and <code>YAML</code> parsers by default.
@@ -187,7 +197,7 @@ puts person.to_xml
       <p>
         If you need more customizations you can use custom libraries.
         Out of the box, Shale provides adapters for
-        <code>REXML</code>, <code>Nokogiri</code> and <code>Ox</code>,
+        <code>REXML</code>, <code>Nokogiri</code>, <code>Ox</code> and <code>toml-rb</code>,
         but you can provide your own adapters - <a href="#adapters">see how to</a>.
       </p>
 
@@ -196,11 +206,11 @@ puts person.to_xml
       </h2>
 
       <ul>
-        <li>Convert JSON, YAML and XML to Ruby data model</li>
-        <li>Convert Ruby data model to JSON, YAML and XML</li>
+        <li>Convert JSON, YAML, TOML and XML to Ruby data model</li>
+        <li>Convert Ruby data model to JSON, YAML, TOML and XML</li>
         <li>Generate JSON and XML Schema from Ruby models</li>
         <li>Compile JSON Schema into Ruby models</li>
-        <li>Out of the box support for JSON, YAML, Nokogiri, REXML and Ox parsers</li>
+        <li>Out of the box support for JSON, YAML, toml-rb, Nokogiri, REXML and Ox parsers</li>
         <li>Support for custom adapters</li>
       </ul>
 
@@ -261,6 +271,20 @@ puts person.to_xml
       </div>
 
       <p>
+        If you want to work with TOML you need to install toml-rb parser and setup adapter:
+      </p>
+
+      <div class="code-section">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="ruby" style="height: 70px;">
+  require 'shale/adapter/toml_rb'
+  Shale.toml_adapter = Shale::Adapter::TomlRB
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <p>
         Converting data to Ruby is as simple as defining model classes and calling
         <code>from_&ltformat&gt</code> method on this class.
         e.g. <code>Person.from_json(json_doc)</code>
@@ -271,8 +295,9 @@ puts person.to_xml
           <strong>Example:</strong>
           <a href="" data-mode="json" class="active-example">JSON to Ruby</a>
           <a href="" data-mode="yaml">YAML to Ruby</a>
+          <a href="" data-mode="toml">TOML to Ruby</a>
           <a href="" data-mode="xml">XML to Ruby</a>
-          <a href="" data-mode="ruby">Ruby Hash to Ruby</a>
+          <a href="" data-mode="ruby">Hash to Ruby</a>
         </div>
 
         <div class="code-section code-section-editor">
@@ -310,6 +335,7 @@ puts person.to_xml
           <strong>Example:</strong>
           <a href="" data-mode="json" class="active-example">Ruby to JSON</a>
           <a href="" data-mode="yaml">Ruby to YAML</a>
+          <a href="" data-mode="toml">Ruby to TOML</a>
           <a href="" data-mode="xml">Ruby to XML</a>
           <a href="" data-mode="ruby">Ruby to Hash</a>
         </div>
@@ -340,7 +366,7 @@ puts person.to_xml
 
       <p>
         When you define a class and add attributes, underneath Shale creates an implicit mapping
-        of keys (for JSON/YAML) and elements (for XML) to attributes.
+        of keys (for JSON/YAML/TOML) and elements (for XML) to attributes.
         That is nice for setting up your data model quickly, but usually your data format doesn't
         match your data model so cleanly.
       </p>
@@ -360,6 +386,7 @@ puts person.to_xml
           <strong>Example:</strong>
           <a href="" data-mode="json" class="active-example">Ruby to JSON</a>
           <a href="" data-mode="yaml">Ruby to YAML</a>
+          <a href="" data-mode="toml">Ruby to TOML</a>
           <a href="" data-mode="ruby">Ruby to Hash</a>
         </div>
 
@@ -481,6 +508,7 @@ puts person.to_xml
           <strong>Example:</strong>
           <a href="" data-mode="json" class="active-example">JSON</a>
           <a href="" data-mode="yaml">YAML</a>
+          <a href="" data-mode="toml">TOML</a>
           <a href="" data-mode="xml">XML</a>
         </div>
 
@@ -756,8 +784,9 @@ end
         By default Ruby's standard JSON and YAML parsers are
         used for handling JSON and YAML documents.
       </p>
+
       <p>
-        You can change it by providing your own adapter. For JSON and YAML, adapter must implement
+        You can change it by providing your own adapter. For JSON, TOML and YAML, adapter must implement
         <code>.load</code> and <code>.dump</code> class methods.
       </p>
 
@@ -772,6 +801,26 @@ require 'multi_json'
 
 Shale.json_adapter = MultiJson
 Shale.yaml_adapter = MyYamlAdapter
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <p>
+        To handle TOML documents you have to explicitly set TOML adapter.
+        Shale provides adapters for <code>toml-rb</code> parser:
+      </p>
+
+      <div class="code-section">
+        <div class="code-wrapper">
+          <div
+            class="code code-readonly code-with-gutter"
+            data-mode="ruby"
+            style="height: 90px;"
+          >require 'shale'
+
+require 'shale/adapter/toml_rb'
+Shale.toml_adapter = Shale::Adapter::TomlRB
           </div>
         </div>
         <a href="" class="copy-to-clipboard"></a>

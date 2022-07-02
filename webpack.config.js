@@ -6,6 +6,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: './src/website/index.js',
+  resolve: {
+    fallback: { 'stream': false },
+  },
   output: {
     publicPath: '',
   },
@@ -34,6 +37,7 @@ module.exports = {
     new HtmlInlineScriptPlugin(),
     new ProvidePlugin({
       jsyaml: 'js-yaml',
+      TOML: '@iarna/toml',
     }),
   ],
   performance: {

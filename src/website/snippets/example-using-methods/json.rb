@@ -15,7 +15,7 @@ class Person < Shale::Mapper
   end
 
   def hobbies_to_json(model)
-    hobbies.join(', ')
+    model.hobbies.join(', ')
   end
 
   def address_from_json(model, value)

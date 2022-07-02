@@ -4,22 +4,26 @@ import 'ace-builds/src-noconflict/mode-ruby';
 import 'ace-builds/src-noconflict/mode-sh';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/mode-yaml';
+import 'ace-builds/src-noconflict/mode-toml';
 import 'ace-builds/src-noconflict/mode-xml';
 import './runtime';
 import './index.css';
 
 import exampleDataToRubyJson from './snippets/example-data-to-ruby/json.rb';
 import exampleDataToRubyYaml from './snippets/example-data-to-ruby/yaml.rb';
+import exampleDataToRubyToml from './snippets/example-data-to-ruby/toml.rb';
 import exampleDataToRubyXml from './snippets/example-data-to-ruby/xml.rb';
 import exampleDataToRubyHash from './snippets/example-data-to-ruby/hash.rb';
 
 import exampleRubyToDataJson from './snippets/example-ruby-to-data/json.rb';
 import exampleRubyToDataYaml from './snippets/example-ruby-to-data/yaml.rb';
+import exampleRubyToDataToml from './snippets/example-ruby-to-data/toml.rb';
 import exampleRubyToDataXml from './snippets/example-ruby-to-data/xml.rb';
 import exampleRubyToDataHash from './snippets/example-ruby-to-data/hash.rb';
 
 import exampleCustomMappingJson from './snippets/example-custom-mapping/json.rb';
 import exampleCustomMappingYaml from './snippets/example-custom-mapping/yaml.rb';
+import exampleCustomMappingToml from './snippets/example-custom-mapping/toml.rb';
 import exampleCustomMappingHash from './snippets/example-custom-mapping/hash.rb';
 
 import exampleCustomMappingXml from './snippets/example-custom-mapping-xml/xml.rb';
@@ -29,6 +33,7 @@ import exampleXmlNamespaces2 from './snippets/example-xml-namespaces/xml2.rb';
 
 import exampleUsingMethodsJson from './snippets/example-using-methods/json.rb';
 import exampleUsingMethodsYaml from './snippets/example-using-methods/yaml.rb';
+import exampleUsingMethodsToml from './snippets/example-using-methods/toml.rb';
 import exampleUsingMethodsXml from './snippets/example-using-methods/xml.rb';
 
 import exampleGeneratingSchemaJson from './snippets/example-generating-schema/json.rb';
@@ -202,6 +207,7 @@ window.addEventListener('DOMContentLoaded', () => {
   initExample('#example-data-to-ruby', 'json', {
     json: { snippet: exampleDataToRubyJson, outputMode: 'ruby' },
     yaml: { snippet: exampleDataToRubyYaml, outputMode: 'ruby' },
+    toml: { snippet: exampleDataToRubyToml, outputMode: 'ruby' },
     xml: { snippet: exampleDataToRubyXml, outputMode: 'ruby' },
     ruby: { snippet: exampleDataToRubyHash, outputMode: 'ruby' },
   });
@@ -209,6 +215,7 @@ window.addEventListener('DOMContentLoaded', () => {
   initExample('#example-ruby-to-data', 'json', {
     json: { snippet: exampleRubyToDataJson, outputMode: 'json' },
     yaml: { snippet: exampleRubyToDataYaml, outputMode: 'yaml' },
+    toml: { snippet: exampleRubyToDataToml, outputMode: 'toml' },
     xml: { snippet: exampleRubyToDataXml, outputMode: 'xml' },
     ruby: { snippet: exampleRubyToDataHash, outputMode: 'ruby' },
   });
@@ -216,6 +223,7 @@ window.addEventListener('DOMContentLoaded', () => {
   initExample('#example-custom-mapping', 'json', {
     json: { snippet: exampleCustomMappingJson, outputMode: 'json' },
     yaml: { snippet: exampleCustomMappingYaml, outputMode: 'yaml' },
+    toml: { snippet: exampleCustomMappingToml, outputMode: 'toml' },
     ruby: { snippet: exampleCustomMappingHash, outputMode: 'ruby' },
   });
 
@@ -231,6 +239,7 @@ window.addEventListener('DOMContentLoaded', () => {
   initExample('#example-using-methods', 'json', {
     json: { snippet: exampleUsingMethodsJson, outputMode: 'ruby' },
     yaml: { snippet: exampleUsingMethodsYaml, outputMode: 'ruby' },
+    toml: { snippet: exampleUsingMethodsToml, outputMode: 'ruby' },
     xml: { snippet: exampleUsingMethodsXml, outputMode: 'ruby' },
   });
 

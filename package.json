@@ -19,6 +19,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
+    "@iarna/toml": "^2.2.5",
     "ace-builds": "^1.4.14",
     "js-yaml": "^4.1.0"
   }

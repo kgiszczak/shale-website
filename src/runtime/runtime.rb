@@ -243,6 +243,19 @@ module Adapter
   end
 end
 
+module Adapter
+  class JsTOML
+    def self.load(toml)
+      Hash.new(`TOML.parse(toml)`)
+    end
+
+    def self.dump(obj)
+      `TOML.stringify(#{obj.to_n})`
+    end
+  end
+end
+
 Shale.xml_adapter = Adapter::DOMParser
 Shale.json_adapter = Adapter::JsJSON
 Shale.yaml_adapter = Adapter::JsYAML
+Shale.toml_adapter = Adapter::JsTOML
