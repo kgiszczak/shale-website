@@ -10,21 +10,21 @@ class Person < Shale::Mapper
     map 'address', using: { from: :address_from_yaml, to: :address_to_yaml }
   end
 
-  def hobbies_from_yaml(value)
-    self.hobbies = value.split(',').map(&:strip)
+  def hobbies_from_yaml(model, value)
+    model.hobbies = value.split(',').map(&:strip)
   end
 
-  def hobbies_to_yaml
-    hobbies.join(', ')
+  def hobbies_to_yaml(model)
+    model.hobbies.join(', ')
   end
 
-  def address_from_yaml(value)
-    self.street = value['street']
-    self.city = value['city']
+  def address_from_yaml(model, value)
+    model.street = value['street']
+    model.city = value['city']
   end
 
-  def address_to_yaml
-    { 'street' => street, 'city' => city }
+  def address_to_yaml(model)
+    { 'street' => model.street, 'city' => model.city }
   end
 end
 

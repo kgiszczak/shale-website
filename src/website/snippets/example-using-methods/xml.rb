@@ -19,25 +19,25 @@ class Person < Shale::Mapper
     }
   end
 
-  def hobbies_from_xml(value)
-    self.hobbies = value.split(',').map(&:strip)
+  def hobbies_from_xml(model, value)
+    model.hobbies = value.split(',').map(&:strip)
   end
 
-  def hobbies_to_xml(element, doc)
-    doc.add_attribute(element, 'hobbies', hobbies.join(', '))
+  def hobbies_to_xml(model, element, doc)
+    doc.add_attribute(element, 'hobbies', model.hobbies.join(', '))
   end
 
-  def address_from_xml(node)
-    self.street = node.children.find { |e| e.name == 'Street' }.text
-    self.city = node.children.find { |e| e.name == 'City' }.text
+  def address_from_xml(model, node)
+    model.street = node.children.find { |e| e.name == 'Street' }.text
+    model.city = node.children.find { |e| e.name == 'City' }.text
   end
 
-  def address_to_xml(parent, doc)
+  def address_to_xml(model, parent, doc)
     street_element = doc.create_element('Street')
-    doc.add_text(street_element, street.to_s)
+    doc.add_text(street_element, model.street.to_s)
 
     city_element = doc.create_element('City')
-    doc.add_text(city_element, city.to_s)
+    doc.add_text(city_element, model.city.to_s)
 
     address_element = doc.create_element('Address')
     doc.add_element(address_element, street_element)

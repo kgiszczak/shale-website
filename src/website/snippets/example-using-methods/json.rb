@@ -10,21 +10,21 @@ class Person < Shale::Mapper
     map 'address', using: { from: :address_from_json, to: :address_to_json }
   end
 
-  def hobbies_from_json(value)
-    self.hobbies = value.split(',').map(&:strip)
+  def hobbies_from_json(model, value)
+    model.hobbies = value.split(',').map(&:strip)
   end
 
-  def hobbies_to_json
+  def hobbies_to_json(model)
     hobbies.join(', ')
   end
 
-  def address_from_json(value)
-    self.street = value['street']
-    self.city = value['city']
+  def address_from_json(model, value)
+    model.street = value['street']
+    model.city = value['city']
   end
 
-  def address_to_json
-    { 'street' => street, 'city' => city }
+  def address_to_json(model)
+    { 'street' => model.street, 'city' => model.city }
   end
 end
 
