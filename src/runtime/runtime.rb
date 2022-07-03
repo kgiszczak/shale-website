@@ -62,14 +62,16 @@ function formatXml(xml) {
   const indent = '  ';
   let tabs = '';
 
-  return xml.replace(NODE_PATTERN, (m, i) => {
+  const result = xml.replace(NODE_PATTERN, (m, i) => {
     m = m.replace(/^\s+|\s+$/g, '');
 
     if (i < 38) {
       if (/^<[?]xml/.test(m)) return m + '\n';
     }
 
-    if (/^<[/]/.test(m)) {
+    if (/^<!/.test(m)) {
+      tabs = tabs.replace(indent, '');
+    } else if (/^<[/]/.test(m)) {
       tabs = tabs.replace(indent, '');
       m = tabs + m;
     } else if (/<.*>.*<\/.*>|<.*[^>]\/>/.test(m)) {
@@ -84,6 +86,8 @@ function formatXml(xml) {
 
     return m + '\n';
   });
+
+  return result.replace(/>\n<!/g, '><!');
 }
 `
 
@@ -132,6 +136,10 @@ module Adapter
 
       def create_element(name)
         `#@doc.createElement(name)`
+      end
+
+      def create_cdata(text, parent)
+        `parent.appendChild(#@doc.createCDATASection(text))`
       end
 
       def add_namespace(prefix, namespace)

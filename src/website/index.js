@@ -27,6 +27,7 @@ import exampleCustomMappingToml from './snippets/example-custom-mapping/toml.rb'
 import exampleCustomMappingHash from './snippets/example-custom-mapping/hash.rb';
 
 import exampleCustomMappingXml from './snippets/example-custom-mapping-xml/xml.rb';
+import exampleCdata from './snippets/example-cdata/xml.rb';
 
 import exampleXmlNamespaces1 from './snippets/example-xml-namespaces/xml1.rb';
 import exampleXmlNamespaces2 from './snippets/example-xml-namespaces/xml2.rb';
@@ -229,6 +230,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   initExample('#example-custom-mapping-xml', 'xml', {
     xml: { snippet: exampleCustomMappingXml, outputMode: 'xml' },
+  });
+
+  initExample('#example-cdata', 'xml', {
+    xml: { snippet: exampleCdata, outputMode: 'xml' },
   });
 
   initExample('#example-xml-namespaces', 'xml1', {
