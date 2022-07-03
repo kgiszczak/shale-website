@@ -43,6 +43,7 @@
         <a href="#using-xml-namespaces">XML namespaces</a>
         <a href="#using-methods">Using methods</a>
         <a href="#pretty-printing">Pretty printing</a>
+        <a href="#using-custom-models">Using custom models</a>
         <a href="#generating-json-and-xml-schema">Generating Schema</a>
         <a href="#compiling-json-and-xml-schema">Compiling Schema</a>
         <a href="#supported-types">Supported types</a>
@@ -609,6 +610,44 @@ puts person.to_xml
           </div>
         </div>
         <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <h2 id="using-custom-models">
+        <a href="#using-custom-models" class="header-anchor">#</a>
+        Using custom models
+      </h2>
+
+      <p>
+        By default Shale combines mapper and model into one class.
+        If you want to use your own classes as models you can do it by using
+        <code>model</code> directive on the mapper:
+      </p>
+
+      <div id="example-custom-models">
+        <div class="example-group">
+          <strong>Example:</strong>
+          <a href="" data-mode="ruby" class="active-example">Data to Ruby</a>
+          <a href="" data-mode="json">Ruby to Data</a>
+        </div>
+
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 615px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="ruby" style="height: 160px;">
+            </div>
+          </div>
+        </div>
       </div>
 
       <h2 id="generating-json-and-xml-schema">

@@ -37,6 +37,9 @@ import exampleUsingMethodsYaml from './snippets/example-using-methods/yaml.rb';
 import exampleUsingMethodsToml from './snippets/example-using-methods/toml.rb';
 import exampleUsingMethodsXml from './snippets/example-using-methods/xml.rb';
 
+import exampleCustomModelsRuby from './snippets/example-custom-models/ruby.rb';
+import exampleCustomModelsJson from './snippets/example-custom-models/json.rb';
+
 import exampleGeneratingSchemaJson from './snippets/example-generating-schema/json.rb';
 import exampleGeneratingSchemaXml from './snippets/example-generating-schema/xml.rb';
 
@@ -246,6 +249,11 @@ window.addEventListener('DOMContentLoaded', () => {
     yaml: { snippet: exampleUsingMethodsYaml, outputMode: 'ruby' },
     toml: { snippet: exampleUsingMethodsToml, outputMode: 'ruby' },
     xml: { snippet: exampleUsingMethodsXml, outputMode: 'ruby' },
+  });
+
+  initExample('#example-custom-models', 'ruby', {
+    ruby: { snippet: exampleCustomModelsRuby, outputMode: 'ruby' },
+    json: { snippet: exampleCustomModelsJson, outputMode: 'json' },
   });
 
   initExample('#example-generating-schema', 'json', {
