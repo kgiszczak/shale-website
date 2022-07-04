@@ -274,4 +274,18 @@ window.addEventListener('DOMContentLoaded', () => {
   initExample('#example-release-v050-compiling-schema', 'xml', {
     xml: { snippet: exampleCompilingSchemaXml, outputMode: 'ruby' },
   });
+
+  initExample('#example-release-v060-custom-models', 'ruby', {
+    ruby: { snippet: exampleCustomModelsRuby, outputMode: 'ruby' },
+    json: { snippet: exampleCustomModelsJson, outputMode: 'json' },
+  });
+
+  initExample('#example-release-v060-toml', 'ruby', {
+    ruby: { snippet: exampleRubyToDataToml, outputMode: 'toml' },
+    toml: { snippet: exampleDataToRubyToml, outputMode: 'ruby' },
+  });
+
+  initExample('#example-release-v060-cdata', 'ruby', {
+    ruby: { snippet: exampleCdata, outputMode: 'xml' },
+  });
 });
