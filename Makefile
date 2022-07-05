@@ -5,7 +5,7 @@ init-aws:
 .PHONY: deploy
 deploy: build
 	aws s3 cp dist s3://www.shalerb.org --recursive
-	aws cloudfront create-invalidation --distribution-id E1ZYY0483EHU3 --paths "/index.html" > /dev/null
+	aws cloudfront create-invalidation --distribution-id E1ZYY0483EHU3 --paths "/index.html" "/releases.html" > /dev/null
 
 .PHONY: build
 build: runtime
