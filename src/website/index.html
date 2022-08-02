@@ -180,9 +180,14 @@ puts person.to_xml
         </li>
       </ul>
 
-      <p>If you want to work with TOML you will need:</p>
+      <p>If you want to work with TOML you will need one of:</p>
 
       <ul>
+        <li>
+          <a href="https://github.com/kgiszczak/tomlib" target="_blank" rel="noopener noreferrer">
+            Tomlib
+          </a>
+        </li>
         <li>
           <a href="https://github.com/emancu/toml-rb" target="_blank" rel="noopener noreferrer">
             toml-rb
@@ -211,7 +216,10 @@ puts person.to_xml
         <li>Convert Ruby data model to JSON, YAML, TOML and XML</li>
         <li>Generate JSON and XML Schema from Ruby models</li>
         <li>Compile JSON Schema into Ruby models</li>
-        <li>Out of the box support for JSON, YAML, toml-rb, Nokogiri, REXML and Ox parsers</li>
+        <li>
+          Out of the box support for JSON, YAML, Tomlib,
+          toml-rb, Nokogiri, REXML and Ox parsers
+        </li>
         <li>Support for custom adapters</li>
       </ul>
 
@@ -272,14 +280,15 @@ puts person.to_xml
       </div>
 
       <p>
-        If you want to work with TOML you need to install toml-rb parser and setup adapter:
+        If you want to work with TOML you will need to install
+        Tomlib parser and setup it as an adapter:
       </p>
 
       <div class="code-section">
         <div class="code-wrapper">
           <div class="code code-readonly" data-mode="ruby" style="height: 70px;">
-  require 'shale/adapter/toml_rb'
-  Shale.toml_adapter = Shale::Adapter::TomlRB
+  require 'tomlib'
+  Shale.toml_adapter = Tomlib
           </div>
         </div>
         <a href="" class="copy-to-clipboard"></a>
@@ -412,7 +421,7 @@ puts person.to_xml
       </div>
 
       <p>
-        XML is more complicated format.
+        XML is more complex format.
       </p>
 
       <ul>
@@ -873,7 +882,8 @@ Shale.yaml_adapter = MyYamlAdapter
 
       <p>
         To handle TOML documents you have to explicitly set TOML adapter.
-        Shale provides adapters for <code>toml-rb</code> parser:
+        Out of the box <code>Tomlib</code> is supported.
+        Shale also provides adapter for <code>toml-rb</code> parser:
       </p>
 
       <div class="code-section">
@@ -881,9 +891,14 @@ Shale.yaml_adapter = MyYamlAdapter
           <div
             class="code code-readonly code-with-gutter"
             data-mode="ruby"
-            style="height: 90px;"
+            style="height: 170px;"
           >require 'shale'
 
+# if you want to use Tomlib
+require 'tomlib'
+Shale.toml_adapter = Tomlib
+
+# if you want to use toml-rb
 require 'shale/adapter/toml_rb'
 Shale.toml_adapter = Shale::Adapter::TomlRB
           </div>
