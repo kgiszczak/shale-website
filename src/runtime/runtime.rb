@@ -258,6 +258,7 @@ module Adapter
     end
 
     def self.dump(obj)
+      obj = obj.transform_values { |v| v.nil? ? '' : v }
       `TOML.stringify(#{obj.to_n})`
     end
   end

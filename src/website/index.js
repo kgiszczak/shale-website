@@ -32,6 +32,11 @@ import exampleCdata from './snippets/example-cdata/xml.rb';
 import exampleXmlNamespaces1 from './snippets/example-xml-namespaces/xml1.rb';
 import exampleXmlNamespaces2 from './snippets/example-xml-namespaces/xml2.rb';
 
+import exampleRenderingNilValuesJson from './snippets/example-rendering-nil-values/json.rb';
+import exampleRenderingNilValuesYaml from './snippets/example-rendering-nil-values/yaml.rb';
+import exampleRenderingNilValuesToml from './snippets/example-rendering-nil-values/toml.rb';
+import exampleRenderingNilValuesXml from './snippets/example-rendering-nil-values/xml.rb';
+
 import exampleUsingMethodsJson from './snippets/example-using-methods/json.rb';
 import exampleUsingMethodsYaml from './snippets/example-using-methods/yaml.rb';
 import exampleUsingMethodsToml from './snippets/example-using-methods/toml.rb';
@@ -242,6 +247,13 @@ window.addEventListener('DOMContentLoaded', () => {
   initExample('#example-xml-namespaces', 'xml1', {
     xml1: { snippet: exampleXmlNamespaces1, outputMode: 'ruby' },
     xml2: { snippet: exampleXmlNamespaces2, outputMode: 'ruby' },
+  });
+
+  initExample('#example-rendering-nil-values', 'json', {
+    json: { snippet: exampleRenderingNilValuesJson, outputMode: 'ruby' },
+    yaml: { snippet: exampleRenderingNilValuesYaml, outputMode: 'ruby' },
+    toml: { snippet: exampleRenderingNilValuesToml, outputMode: 'ruby' },
+    xml: { snippet: exampleRenderingNilValuesXml, outputMode: 'ruby' },
   });
 
   initExample('#example-using-methods', 'json', {
