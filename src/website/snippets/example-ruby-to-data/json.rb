@@ -27,4 +27,4 @@ person = Person.new(
   ),
 )
 
-puts person.to_json(:pretty)
+puts person.to_json(pretty: true)

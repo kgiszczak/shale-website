@@ -18,4 +18,4 @@ puts Person.new(
   first_name: nil,
   last_name: nil,
   age: nil
-).to_xml(:pretty)
+).to_xml(pretty: true)

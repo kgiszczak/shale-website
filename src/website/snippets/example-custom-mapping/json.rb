@@ -15,4 +15,4 @@ person = Person.new(
   last_name: 'Doe',
 )
 
-puts person.to_json(:pretty)
+puts person.to_json(pretty: true)

@@ -614,7 +614,7 @@ puts person.to_xml
 
       <p>
         By default generated JSON and XML are compacted. If you need human readable format use
-        <code>:pretty</code> parameter on <code>#to_json</code> and <code>#to_xml</code>
+        <code>pretty: true</code> parameter on <code>#to_json</code> and <code>#to_xml</code>
       </p>
 
       <div class="code-section">
@@ -623,7 +623,7 @@ puts person.to_xml
             class="code code-readonly code-with-gutter"
             data-mode="ruby"
             style="height: 180px;"
-          >person.to_json(:pretty)
+          >person.to_json(pretty: true)
 # =>
 #
 # {
@@ -639,7 +639,7 @@ puts person.to_xml
 
       <p>
         You can also add an XML declaration by passing
-        <code>:declaration</code> to <code>#to_xml</code>
+        <code>declaration: true</code> to <code>#to_xml</code>
       </p>
 
       <div class="code-section">
@@ -648,7 +648,7 @@ puts person.to_xml
             class="code code-readonly code-with-gutter"
             data-mode="ruby"
             style="height: 140px;"
-          >person.to_xml(:pretty, :declaration)
+          >person.to_xml(pretty: true, declaration: true)
 # =>
 #
 # &lt;?xml version="1.0"?&gt;

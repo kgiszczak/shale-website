@@ -23,4 +23,4 @@ end
 puts Person.new(
   first_name: 'John',
   address: Address.new(content: 'Oxford Street')
-).to_xml(:pretty)
+).to_xml(pretty: true)

@@ -20,4 +20,4 @@ person = Person.new(
   hobbies: ['Singing', 'Dancing'],
 )
 
-puts person.to_xml(:pretty)
+puts person.to_xml(pretty: true)

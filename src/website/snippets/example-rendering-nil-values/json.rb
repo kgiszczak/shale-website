@@ -16,4 +16,4 @@ puts Person.new(
   first_name: nil,
   last_name: nil,
   age: nil
-).to_json(:pretty)
+).to_json(pretty: true)

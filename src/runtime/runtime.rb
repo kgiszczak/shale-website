@@ -98,16 +98,16 @@ module Adapter
       Node.new(`doc.documentElement`)
     end
 
-    def self.dump(doc, *options)
+    def self.dump(doc, pretty: false, declaration: false)
       result = ''
 
-      if options.include?(:declaration)
+      if declaration
         result += '<?xml version="1.0"?>'
       end
 
       result += `new XMLSerializer().serializeToString(doc)`
 
-      if options.include?(:pretty)
+      if pretty
         `return formatXml(result)`
       else
         result
@@ -229,8 +229,8 @@ module Adapter
       ::JSON.parse(json)
     end
 
-    def self.dump(obj, *options)
-      if options.include?(:pretty)
+    def self.dump(obj, pretty: false)
+      if pretty
         `JSON.stringify(#{obj.to_n}, null, 2)`
       else
         `JSON.stringify(#{obj.to_n})`

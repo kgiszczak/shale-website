@@ -32,4 +32,4 @@ person.first_name = 'John'
 person.last_name = 'Doe'
 person.address = address
 
-puts PersonMapper.to_json(person, :pretty)
+puts PersonMapper.to_json(person, pretty: true)

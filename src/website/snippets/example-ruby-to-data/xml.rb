@@ -27,4 +27,4 @@ person = Person.new(
   ),
 )
 
-puts person.to_xml(:pretty)
+puts person.to_xml(pretty: true)
