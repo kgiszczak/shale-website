@@ -14,8 +14,8 @@ class Person < Shale::Mapper
     model.hobbies = value.split(',').map(&:strip)
   end
 
-  def hobbies_to_json(model)
-    model.hobbies.join(', ')
+  def hobbies_to_json(model, doc)
+    doc['hobbies'] = model.hobbies.join(', ')
   end
 
   def address_from_json(model, value)
@@ -23,8 +23,8 @@ class Person < Shale::Mapper
     model.city = value['city']
   end
 
-  def address_to_json(model)
-    { 'street' => model.street, 'city' => model.city }
+  def address_to_json(model, doc)
+    doc['address'] = { 'street' => model.street, 'city' => model.city }
   end
 end
 

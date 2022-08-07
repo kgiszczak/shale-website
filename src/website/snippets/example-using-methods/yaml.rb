@@ -14,8 +14,8 @@ class Person < Shale::Mapper
     model.hobbies = value.split(',').map(&:strip)
   end
 
-  def hobbies_to_yaml(model)
-    model.hobbies.join(', ')
+  def hobbies_to_yaml(model, doc)
+    doc['hobbies'] = model.hobbies.join(', ')
   end
 
   def address_from_yaml(model, value)
@@ -23,8 +23,8 @@ class Person < Shale::Mapper
     model.city = value['city']
   end
 
-  def address_to_yaml(model)
-    { 'street' => model.street, 'city' => model.city }
+  def address_to_yaml(model, doc)
+    doc['address'] = { 'street' => model.street, 'city' => model.city }
   end
 end
 
