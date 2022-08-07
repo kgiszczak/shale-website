@@ -42,6 +42,9 @@ import exampleUsingMethodsYaml from './snippets/example-using-methods/yaml.rb';
 import exampleUsingMethodsToml from './snippets/example-using-methods/toml.rb';
 import exampleUsingMethodsXml from './snippets/example-using-methods/xml.rb';
 
+import exampleOnlyExceptOptionsRender from './snippets/example-only-except-options/render.rb';
+import exampleOnlyExceptOptionsParse from './snippets/example-only-except-options/parse.rb';
+
 import exampleCustomModelsRuby from './snippets/example-custom-models/ruby.rb';
 import exampleCustomModelsJson from './snippets/example-custom-models/json.rb';
 
@@ -261,6 +264,11 @@ window.addEventListener('DOMContentLoaded', () => {
     yaml: { snippet: exampleUsingMethodsYaml, outputMode: 'ruby' },
     toml: { snippet: exampleUsingMethodsToml, outputMode: 'ruby' },
     xml: { snippet: exampleUsingMethodsXml, outputMode: 'ruby' },
+  });
+
+  initExample('#example-only-except-options', 'render', {
+    render: { snippet: exampleOnlyExceptOptionsRender, outputMode: 'json' },
+    parse: { snippet: exampleOnlyExceptOptionsParse, outputMode: 'ruby' },
   });
 
   initExample('#example-custom-models', 'ruby', {

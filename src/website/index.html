@@ -43,7 +43,7 @@
         <a href="#using-xml-namespaces">XML namespaces</a>
         <a href="#rendering-nil-values">Rendering nil values</a>
         <a href="#using-methods">Using methods</a>
-        <a href="#pretty-printing">Pretty printing</a>
+        <a href="#additional-options">Additional options</a>
         <a href="#using-custom-models">Using custom models</a>
         <a href="#generating-json-and-xml-schema">Generating Schema</a>
         <a href="#compiling-json-and-xml-schema">Compiling Schema</a>
@@ -607,10 +607,42 @@ puts person.to_xml
         </div>
       </div>
 
-      <h2 id="pretty-printing">
-        <a href="#pretty-printing" class="header-anchor">#</a>
-        Pretty printing and XML declaration
+      <h2 id="additional-options">
+        <a href="#additional-options" class="header-anchor">#</a>
+        Additional options
       </h2>
+
+      <p>
+        You can control which attributes to render and parse by
+        using <code>only: []</code> and <code>except: []</code> parameters.
+      </p>
+
+      <div id="example-only-except-options">
+        <div class="example-group">
+          <strong>Example:</strong>
+          <a href="" data-mode="render" class="active-example">Render</a>
+          <a href="" data-mode="parse">Parse</a>
+        </div>
+
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 450px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="ruby" style="height: 110px;">
+            </div>
+          </div>
+        </div>
+      </div>
 
       <p>
         By default generated JSON and XML are compacted. If you need human readable format use
