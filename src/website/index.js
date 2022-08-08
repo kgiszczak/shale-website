@@ -42,6 +42,8 @@ import exampleUsingMethodsYaml from './snippets/example-using-methods/yaml.rb';
 import exampleUsingMethodsToml from './snippets/example-using-methods/toml.rb';
 import exampleUsingMethodsXml from './snippets/example-using-methods/xml.rb';
 
+import exampleUsingMethodsContextJson from './snippets/example-using-methods-context/json.rb';
+
 import exampleOnlyExceptOptionsRender from './snippets/example-only-except-options/render.rb';
 import exampleOnlyExceptOptionsParse from './snippets/example-only-except-options/parse.rb';
 
@@ -257,6 +259,10 @@ window.addEventListener('DOMContentLoaded', () => {
     yaml: { snippet: exampleRenderingNilValuesYaml, outputMode: 'ruby' },
     toml: { snippet: exampleRenderingNilValuesToml, outputMode: 'ruby' },
     xml: { snippet: exampleRenderingNilValuesXml, outputMode: 'ruby' },
+  });
+
+  initExample('#example-using-methods-context', 'json', {
+    json: { snippet: exampleUsingMethodsContextJson, outputMode: 'json' },
   });
 
   initExample('#example-using-methods', 'json', {
