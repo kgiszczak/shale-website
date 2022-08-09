@@ -32,7 +32,8 @@
     <div class="index">
       <div class="index-nav">
         <h4>CONTENTS</h4>
-        <a class="active" href="#v060">v0.6.0</a>
+        <a class="active" href="#v070">v0.7.0</a>
+        <a href="#v060">v0.6.0</a>
         <a href="#v050">v0.5.0</a>
       </div>
     </div>
@@ -40,6 +41,152 @@
       <h1 id="releases">
         <a href="#releases" class="header-anchor">#</a> Releases
       </h1>
+
+      <h2 id="v070">
+        <a href="#v070" class="header-anchor">#</a> v0.7.0
+      </h2>
+
+      <p>What's new:</p>
+
+      <ul>
+        <li>
+          You can set <code>render_nil: true</code> option on a mapping to control
+          how <code>nil</code> values are rendered (default is <code>false</code>):
+        </li>
+      </ul>
+
+      <div id="example-release-v070-render-nil">
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 350px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="json" style="height: 80px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul>
+        <li>
+          You can pass <code>only: []</code> and <code>except: []</code> options
+          that allow to control what attributes are rendered/parsed:
+        </li>
+      </ul>
+
+      <div id="example-release-v070-only-except">
+        <div class="example-group">
+          <strong>Example:</strong>
+          <a href="" data-mode="render" class="active-example">Rendering</a>
+          <a href="" data-mode="parse">Parsing</a>
+        </div>
+
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 450px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="ruby" style="height: 110px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul>
+        <li>
+          You can pass a context object to extractor/generator methods:
+        </li>
+      </ul>
+
+      <div id="example-release-v070-context">
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 520px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="ruby" style="height: 60px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>What's changed:</p>
+
+      <ul>
+        <li>
+          <code>:pretty</code> and <code>:declaration</code> options are keyword arguments now:
+        </li>
+      </ul>
+
+      <div class="code-section">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="ruby" style="height: 120px;">
+  # so this:
+  person.to_json(:pretty)
+
+  # changes into this:
+  person.to_json(pretty: true)
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <ul>
+        <li>
+          Extractor/generator methods for JSON/YAML/TOML accept now whole document instead
+          of relaying on a return value (this behavior is consisten with XML mapping)
+        </li>
+      </ul>
+
+      <div class="code-section">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="ruby" style="height: 290px;">
+  class Person < Shale::Mapper
+    attribute :first_name, Shale::Type::String
+
+    json do
+      map 'first_name', using: { from: :first_name_from, to: first_name_to }
+    end
+
+    def first_name_from(model, value)
+      model.first_name = value
+    end
+
+    def first_name_to(model, doc)
+      doc['first_name'] = model.first_name
+    end
+  end
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
 
       <h2 id="v060">
         <a href="#v060" class="header-anchor">#</a> v0.6.0

@@ -314,4 +314,17 @@ window.addEventListener('DOMContentLoaded', () => {
   initExample('#example-release-v060-cdata', 'ruby', {
     ruby: { snippet: exampleCdata, outputMode: 'xml' },
   });
+
+  initExample('#example-release-v070-render-nil', 'ruby', {
+    ruby: { snippet: exampleRenderingNilValuesJson, outputMode: 'json' },
+  });
+
+  initExample('#example-release-v070-only-except', 'render', {
+    render: { snippet: exampleOnlyExceptOptionsRender, outputMode: 'json' },
+    parse: { snippet: exampleOnlyExceptOptionsParse, outputMode: 'ruby' },
+  });
+
+  initExample('#example-release-v070-context', 'ruby', {
+    ruby: { snippet: exampleUsingMethodsContextJson, outputMode: 'json' },
+  });
 });
