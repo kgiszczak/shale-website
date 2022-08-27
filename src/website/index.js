@@ -44,6 +44,9 @@ import exampleUsingMethodsXml from './snippets/example-using-methods/xml.rb';
 
 import exampleUsingMethodsContextJson from './snippets/example-using-methods-context/json.rb';
 
+import exampleUsingMethodsGroupingJson from './snippets/example-using-methods-grouping/json.rb';
+import exampleUsingMethodsGroupingXml from './snippets/example-using-methods-grouping/xml.rb';
+
 import exampleOnlyExceptOptionsRender from './snippets/example-only-except-options/render.rb';
 import exampleOnlyExceptOptionsParse from './snippets/example-only-except-options/parse.rb';
 
@@ -58,6 +61,8 @@ import exampleGeneratingSchemaCustomTypesXml from './snippets/example-generating
 
 import exampleCompilingSchemaJson from './snippets/example-compiling-schema/json.rb';
 import exampleCompilingSchemaXml from './snippets/example-compiling-schema/xml.rb';
+
+import exampleAnonymousModuleJson from './snippets/example-anonymous-module/json.rb';
 
 ace.config.setModuleUrl(
   'ace/mode/json_worker',
@@ -261,15 +266,20 @@ window.addEventListener('DOMContentLoaded', () => {
     xml: { snippet: exampleRenderingNilValuesXml, outputMode: 'ruby' },
   });
 
-  initExample('#example-using-methods-context', 'json', {
-    json: { snippet: exampleUsingMethodsContextJson, outputMode: 'json' },
-  });
-
   initExample('#example-using-methods', 'json', {
     json: { snippet: exampleUsingMethodsJson, outputMode: 'ruby' },
     yaml: { snippet: exampleUsingMethodsYaml, outputMode: 'ruby' },
     toml: { snippet: exampleUsingMethodsToml, outputMode: 'ruby' },
     xml: { snippet: exampleUsingMethodsXml, outputMode: 'ruby' },
+  });
+
+  initExample('#example-using-methods-context', 'json', {
+    json: { snippet: exampleUsingMethodsContextJson, outputMode: 'json' },
+  });
+
+  initExample('#example-using-methods-grouping', 'json', {
+    json: { snippet: exampleUsingMethodsGroupingJson, outputMode: 'ruby' },
+    xml: { snippet: exampleUsingMethodsGroupingXml, outputMode: 'ruby' },
   });
 
   initExample('#example-only-except-options', 'render', {
@@ -326,5 +336,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
   initExample('#example-release-v070-context', 'ruby', {
     ruby: { snippet: exampleUsingMethodsContextJson, outputMode: 'json' },
+  });
+
+  initExample('#example-release-v080-grouping', 'ruby', {
+    ruby: { snippet: exampleUsingMethodsGroupingJson, outputMode: 'json' },
+  });
+
+  initExample('#example-release-v080-anonymous-module', 'ruby', {
+    ruby: { snippet: exampleAnonymousModuleJson, outputMode: 'json' },
   });
 });

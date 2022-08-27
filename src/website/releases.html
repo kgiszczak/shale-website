@@ -32,7 +32,8 @@
     <div class="index">
       <div class="index-nav">
         <h4>CONTENTS</h4>
-        <a class="active" href="#v071">v0.7.1</a>
+        <a class="active" href="#v080">v0.8.0</a>
+        <a href="#v071">v0.7.1</a>
         <a href="#v070">v0.7.0</a>
         <a href="#v060">v0.6.0</a>
         <a href="#v050">v0.5.0</a>
@@ -42,6 +43,72 @@
       <h1 id="releases">
         <a href="#releases" class="header-anchor">#</a> Releases
       </h1>
+
+      <h2 id="v080">
+        <a href="#v080" class="header-anchor">#</a> v0.8.0
+      </h2>
+
+      <p>What's new:</p>
+
+      <ul>
+        <li>
+          Bring back Ruby 2.6 support (it's the version JRuby supports)
+        </li>
+        <li>
+          You can group mappings using <code>group</code> block
+        </li>
+      </ul>
+
+      <div id="example-release-v080-grouping">
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 530px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="json" style="height: 90px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>What's changed:</p>
+
+      <ul>
+        <li>
+          Attributes are defined now on a anonymous module.
+          It allows to override accessors and <code>super</code> works as expected.
+        </li>
+      </ul>
+
+      <div id="example-release-v080-anonymous-module">
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 380px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="json" style="height: 60px;">
+            </div>
+          </div>
+        </div>
+      </div>
 
       <h2 id="v071">
         <a href="#v071" class="header-anchor">#</a> v0.7.1
