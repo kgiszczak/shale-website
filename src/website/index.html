@@ -729,7 +729,9 @@ puts person.to_xml
 
       <p>
         You can also add an XML declaration by passing
-        <code>declaration: true</code> to <code>#to_xml</code>
+        <code>declaration: true</code> and <code>encoding: true</code> to <code>#to_xml</code>.
+        You can use specify version by using string argument e.g.
+        <code>#to_xml(declaration: '1.1', encoding: 'ASCII')</code>
       </p>
 
       <div class="code-section">
@@ -738,10 +740,10 @@ puts person.to_xml
             class="code code-readonly code-with-gutter"
             data-mode="ruby"
             style="height: 140px;"
-          >person.to_xml(pretty: true, declaration: true)
+          >person.to_xml(pretty: true, declaration: true, encoding: true)
 # =>
 #
-# &lt;?xml version="1.0"?&gt;
+# &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 # &lt;Person&gt;
 #   &lt;Address city="London"/&gt;
 # &lt;/Person&gt;

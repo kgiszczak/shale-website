@@ -32,7 +32,8 @@
     <div class="index">
       <div class="index-nav">
         <h4>CONTENTS</h4>
-        <a class="active" href="#v080">v0.8.0</a>
+        <a class="active" href="#v090">v0.9.0</a>
+        <a href="#v080">v0.8.0</a>
         <a href="#v071">v0.7.1</a>
         <a href="#v070">v0.7.0</a>
         <a href="#v060">v0.6.0</a>
@@ -43,6 +44,35 @@
       <h1 id="releases">
         <a href="#releases" class="header-anchor">#</a> Releases
       </h1>
+
+      <h2 id="v090">
+        <a href="#v090" class="header-anchor">#</a> v0.9.0
+      </h2>
+
+      <p>What's new:</p>
+
+      <ul>
+        <li>
+          Allow to specify version and add encoding to XML declaration
+        </li>
+      </ul>
+
+      <div class="code-section">
+        <div class="code-wrapper">
+          <div class="code code-readonly" data-mode="ruby" style="height: 190px;">
+  # you can also pass string to encoding e.g. encoding: 'ASCII'
+  person.to_xml(pretty: true, declaration: '1.1', encoding: true)
+
+  # =>
+  #
+  # &lt;?xml version="1.1" encoding="UTF-8"?&gt;
+  # &lt;Person&gt;
+  #   &lt;Address city="London"/&gt;
+  # &lt;/Person&gt;
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
 
       <h2 id="v080">
         <a href="#v080" class="header-anchor">#</a> v0.8.0
