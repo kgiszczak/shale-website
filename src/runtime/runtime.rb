@@ -242,7 +242,13 @@ end
 module Adapter
   class JsYAML
     def self.load(yaml)
-      Hash.new(`jsyaml.load(yaml)`)
+      data = `jsyaml.load(yaml)`
+
+      if `Array.isArray(data)`
+        data.map { |e| Hash.new(e) }
+      else
+        Hash.new(data)
+      end
     end
 
     def self.dump(obj)

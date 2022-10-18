@@ -21,6 +21,14 @@ import exampleRubyToDataToml from './snippets/example-ruby-to-data/toml.rb';
 import exampleRubyToDataXml from './snippets/example-ruby-to-data/xml.rb';
 import exampleRubyToDataHash from './snippets/example-ruby-to-data/hash.rb';
 
+import exampleCollectionsDataToRubyJson from './snippets/example-collections-data-to-ruby/json.rb';
+import exampleCollectionsDataToRubyYaml from './snippets/example-collections-data-to-ruby/yaml.rb';
+import exampleCollectionsDataToRubyHash from './snippets/example-collections-data-to-ruby/hash.rb';
+
+import exampleCollectionsRubyToDataJson from './snippets/example-collections-ruby-to-data/json.rb';
+import exampleCollectionsRubyToDataYaml from './snippets/example-collections-ruby-to-data/yaml.rb';
+import exampleCollectionsRubyToDataHash from './snippets/example-collections-ruby-to-data/hash.rb';
+
 import exampleCustomMappingJson from './snippets/example-custom-mapping/json.rb';
 import exampleCustomMappingYaml from './snippets/example-custom-mapping/yaml.rb';
 import exampleCustomMappingToml from './snippets/example-custom-mapping/toml.rb';
@@ -110,7 +118,11 @@ function run(outputEditor, codeEditor) {
 
   return new Promise(resolve => {
     setTimeout(() => {
-      outputEditor.setValue(Opal.eval(code).join('\n'), 1);
+      try {
+        outputEditor.setValue(Opal.eval(code).join('\n'), 1);
+      } catch (error) {
+        outputEditor.setValue(error.message, 1);
+      }
       resolve();
     }, 100);
   });
@@ -237,6 +249,18 @@ window.addEventListener('DOMContentLoaded', () => {
     toml: { snippet: exampleRubyToDataToml, outputMode: 'toml' },
     xml: { snippet: exampleRubyToDataXml, outputMode: 'xml' },
     ruby: { snippet: exampleRubyToDataHash, outputMode: 'ruby' },
+  });
+
+  initExample('#example-collections-data-to-ruby', 'json', {
+    json: { snippet: exampleCollectionsDataToRubyJson, outputMode: 'ruby' },
+    yaml: { snippet: exampleCollectionsDataToRubyYaml, outputMode: 'ruby' },
+    ruby: { snippet: exampleCollectionsDataToRubyHash, outputMode: 'ruby' },
+  });
+
+  initExample('#example-collections-ruby-to-data', 'json', {
+    json: { snippet: exampleCollectionsRubyToDataJson, outputMode: 'json' },
+    yaml: { snippet: exampleCollectionsRubyToDataYaml, outputMode: 'yaml' },
+    ruby: { snippet: exampleCollectionsRubyToDataHash, outputMode: 'ruby' },
   });
 
   initExample('#example-custom-mapping', 'json', {

@@ -39,6 +39,7 @@
         <a href="#installation">Installation</a>
         <a href="#convert-data-to-ruby">Convert data to Ruby</a>
         <a href="#convert-ruby-to-data">Convert Ruby to data</a>
+        <a href="#convert-collections">Convert Collections</a>
         <a href="#custom-mappings">Custom mappings</a>
         <a href="#using-xml-namespaces">XML namespaces</a>
         <a href="#rendering-nil-values">Rendering nil values</a>
@@ -366,6 +367,74 @@ puts person.to_xml
         <div class="code-section code-section-output">
           <div class="code-wrapper">
             <div class="code code-readonly" data-mode="ruby" style="height: 270px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="convert-collections">
+        <a href="#convert-collections" class="header-anchor">#</a> Convert Collections
+      </h2>
+
+      <p>
+        Shale allows converting collections for formats that support it (JSON and YAML).
+      </p>
+
+      <p>To convert data to Ruby array:</p>
+
+      <div id="example-collections-data-to-ruby">
+        <div class="example-group">
+          <strong>Example:</strong>
+          <a href="" data-mode="json" class="active-example">JSON to Ruby</a>
+          <a href="" data-mode="yaml">YAML to Ruby</a>
+          <a href="" data-mode="ruby">Hash to Ruby</a>
+        </div>
+
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 350px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="ruby" style="height: 100px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>To convert Ruby array to data:</p>
+
+      <div id="example-collections-ruby-to-data">
+        <div class="example-group">
+          <strong>Example:</strong>
+          <a href="" data-mode="json" class="active-example">Ruby to JSON</a>
+          <a href="" data-mode="yaml">Ruby to YAML</a>
+          <a href="" data-mode="ruby">Ruby to Hash</a>
+        </div>
+
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 230px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="ruby" style="height: 190px;">
             </div>
           </div>
         </div>
