@@ -2973,6 +2973,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"papaparse@npm:^5.3.2":
+  version: 5.3.2
+  resolution: "papaparse@npm:5.3.2"
+  checksum: a5950ef931a42f6759a8d3823a43dd30f375b37a0ddea6ea5448c0c5024cd226819231958c49c24fbcdeab297c63fd1d630130b3439876ea0fd17d8a267738ae
+  languageName: node
+  linkType: hard
+
 "param-case@npm:^3.0.4":
   version: 3.0.4
   resolution: "param-case@npm:3.0.4"
@@ -3572,6 +3579,7 @@ __metadata:
     html-inline-script-webpack-plugin: ^3.0.0
     html-webpack-plugin: ^5.5.0
     js-yaml: ^4.1.0
+    papaparse: ^5.3.2
     style-loader: ^3.3.1
     terser-webpack-plugin: ^5.3.1
     webpack: ^5.69.1

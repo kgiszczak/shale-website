@@ -12,26 +12,31 @@ import './index.css';
 import exampleDataToRubyJson from './snippets/example-data-to-ruby/json.rb';
 import exampleDataToRubyYaml from './snippets/example-data-to-ruby/yaml.rb';
 import exampleDataToRubyToml from './snippets/example-data-to-ruby/toml.rb';
+import exampleDataToRubyCsv from './snippets/example-data-to-ruby/csv.rb';
 import exampleDataToRubyXml from './snippets/example-data-to-ruby/xml.rb';
 import exampleDataToRubyHash from './snippets/example-data-to-ruby/hash.rb';
 
 import exampleRubyToDataJson from './snippets/example-ruby-to-data/json.rb';
 import exampleRubyToDataYaml from './snippets/example-ruby-to-data/yaml.rb';
 import exampleRubyToDataToml from './snippets/example-ruby-to-data/toml.rb';
+import exampleRubyToDataCsv from './snippets/example-ruby-to-data/csv.rb';
 import exampleRubyToDataXml from './snippets/example-ruby-to-data/xml.rb';
 import exampleRubyToDataHash from './snippets/example-ruby-to-data/hash.rb';
 
 import exampleCollectionsDataToRubyJson from './snippets/example-collections-data-to-ruby/json.rb';
 import exampleCollectionsDataToRubyYaml from './snippets/example-collections-data-to-ruby/yaml.rb';
+import exampleCollectionsDataToRubyCsv from './snippets/example-collections-data-to-ruby/csv.rb';
 import exampleCollectionsDataToRubyHash from './snippets/example-collections-data-to-ruby/hash.rb';
 
 import exampleCollectionsRubyToDataJson from './snippets/example-collections-ruby-to-data/json.rb';
 import exampleCollectionsRubyToDataYaml from './snippets/example-collections-ruby-to-data/yaml.rb';
+import exampleCollectionsRubyToDataCsv from './snippets/example-collections-ruby-to-data/csv.rb';
 import exampleCollectionsRubyToDataHash from './snippets/example-collections-ruby-to-data/hash.rb';
 
 import exampleCustomMappingJson from './snippets/example-custom-mapping/json.rb';
 import exampleCustomMappingYaml from './snippets/example-custom-mapping/yaml.rb';
 import exampleCustomMappingToml from './snippets/example-custom-mapping/toml.rb';
+import exampleCustomMappingCsv from './snippets/example-custom-mapping/csv.rb';
 import exampleCustomMappingHash from './snippets/example-custom-mapping/hash.rb';
 
 import exampleCustomMappingXml from './snippets/example-custom-mapping-xml/xml.rb';
@@ -43,11 +48,13 @@ import exampleXmlNamespaces2 from './snippets/example-xml-namespaces/xml2.rb';
 import exampleRenderingNilValuesJson from './snippets/example-rendering-nil-values/json.rb';
 import exampleRenderingNilValuesYaml from './snippets/example-rendering-nil-values/yaml.rb';
 import exampleRenderingNilValuesToml from './snippets/example-rendering-nil-values/toml.rb';
+import exampleRenderingNilValuesCsv from './snippets/example-rendering-nil-values/csv.rb';
 import exampleRenderingNilValuesXml from './snippets/example-rendering-nil-values/xml.rb';
 
 import exampleUsingMethodsJson from './snippets/example-using-methods/json.rb';
 import exampleUsingMethodsYaml from './snippets/example-using-methods/yaml.rb';
 import exampleUsingMethodsToml from './snippets/example-using-methods/toml.rb';
+import exampleUsingMethodsCsv from './snippets/example-using-methods/csv.rb';
 import exampleUsingMethodsXml from './snippets/example-using-methods/xml.rb';
 
 import exampleUsingMethodsContextJson from './snippets/example-using-methods-context/json.rb';
@@ -239,6 +246,7 @@ window.addEventListener('DOMContentLoaded', () => {
     json: { snippet: exampleDataToRubyJson, outputMode: 'ruby' },
     yaml: { snippet: exampleDataToRubyYaml, outputMode: 'ruby' },
     toml: { snippet: exampleDataToRubyToml, outputMode: 'ruby' },
+    csv: { snippet: exampleDataToRubyCsv, outputMode: 'ruby' },
     xml: { snippet: exampleDataToRubyXml, outputMode: 'ruby' },
     ruby: { snippet: exampleDataToRubyHash, outputMode: 'ruby' },
   });
@@ -247,6 +255,7 @@ window.addEventListener('DOMContentLoaded', () => {
     json: { snippet: exampleRubyToDataJson, outputMode: 'json' },
     yaml: { snippet: exampleRubyToDataYaml, outputMode: 'yaml' },
     toml: { snippet: exampleRubyToDataToml, outputMode: 'toml' },
+    csv: { snippet: exampleRubyToDataCsv, outputMode: 'json' },
     xml: { snippet: exampleRubyToDataXml, outputMode: 'xml' },
     ruby: { snippet: exampleRubyToDataHash, outputMode: 'ruby' },
   });
@@ -254,12 +263,14 @@ window.addEventListener('DOMContentLoaded', () => {
   initExample('#example-collections-data-to-ruby', 'json', {
     json: { snippet: exampleCollectionsDataToRubyJson, outputMode: 'ruby' },
     yaml: { snippet: exampleCollectionsDataToRubyYaml, outputMode: 'ruby' },
+    csv: { snippet: exampleCollectionsDataToRubyCsv, outputMode: 'ruby' },
     ruby: { snippet: exampleCollectionsDataToRubyHash, outputMode: 'ruby' },
   });
 
   initExample('#example-collections-ruby-to-data', 'json', {
     json: { snippet: exampleCollectionsRubyToDataJson, outputMode: 'json' },
     yaml: { snippet: exampleCollectionsRubyToDataYaml, outputMode: 'yaml' },
+    csv: { snippet: exampleCollectionsRubyToDataCsv, outputMode: 'csv' },
     ruby: { snippet: exampleCollectionsRubyToDataHash, outputMode: 'ruby' },
   });
 
@@ -267,6 +278,7 @@ window.addEventListener('DOMContentLoaded', () => {
     json: { snippet: exampleCustomMappingJson, outputMode: 'json' },
     yaml: { snippet: exampleCustomMappingYaml, outputMode: 'yaml' },
     toml: { snippet: exampleCustomMappingToml, outputMode: 'toml' },
+    csv: { snippet: exampleCustomMappingCsv, outputMode: 'json' },
     ruby: { snippet: exampleCustomMappingHash, outputMode: 'ruby' },
   });
 
@@ -287,6 +299,7 @@ window.addEventListener('DOMContentLoaded', () => {
     json: { snippet: exampleRenderingNilValuesJson, outputMode: 'ruby' },
     yaml: { snippet: exampleRenderingNilValuesYaml, outputMode: 'ruby' },
     toml: { snippet: exampleRenderingNilValuesToml, outputMode: 'ruby' },
+    csv: { snippet: exampleRenderingNilValuesCsv, outputMode: 'ruby' },
     xml: { snippet: exampleRenderingNilValuesXml, outputMode: 'ruby' },
   });
 
@@ -294,6 +307,7 @@ window.addEventListener('DOMContentLoaded', () => {
     json: { snippet: exampleUsingMethodsJson, outputMode: 'ruby' },
     yaml: { snippet: exampleUsingMethodsYaml, outputMode: 'ruby' },
     toml: { snippet: exampleUsingMethodsToml, outputMode: 'ruby' },
+    csv: { snippet: exampleUsingMethodsCsv, outputMode: 'ruby' },
     xml: { snippet: exampleUsingMethodsXml, outputMode: 'ruby' },
   });
 
@@ -368,5 +382,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
   initExample('#example-release-v080-anonymous-module', 'ruby', {
     ruby: { snippet: exampleAnonymousModuleJson, outputMode: 'json' },
+  });
+
+  initExample('#example-release-v090-support-for-collections', 'ruby', {
+    ruby: { snippet: exampleCollectionsRubyToDataJson, outputMode: 'json' },
+  });
+
+  initExample('#example-release-v090-support-for-csv', 'ruby', {
+    ruby: { snippet: exampleDataToRubyCsv, outputMode: 'ruby' },
   });
 });

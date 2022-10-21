@@ -14,7 +14,7 @@ build: runtime
 
 .PHONY: runtime
 runtime: clone-opal-uri clone-shale bundle
-	cd src/runtime && opal -c --no-source-map -I shale/lib -I opal-uri/opal runtime.rb > ../website/runtime.js
+	cd src/runtime && opal -c --no-source-map -I shale/lib -I opal-uri/opal -I stubs runtime.rb > ../website/runtime.js
 
 .PHONY: clone-opal-uri
 clone-opal-uri:

@@ -270,7 +270,25 @@ module Adapter
   end
 end
 
+module Adapter
+  class JsCSV
+    def self.load(csv, headers:, **options)
+      col_sep = options[:col_sep] || ','
+      header_row = headers.join(col_sep)
+      csv = "#{header_row}\n#{csv}".sub(/\n$/, '')
+      data = `Papa.parse(csv, { header: true, delimiter: col_sep }).data`
+      data.map { |e| Hash.new(e) }
+    end
+
+    def self.dump(obj, headers:, **options)
+      col_sep = options[:col_sep] || ','
+      `Papa.unparse(#{obj.to_n}, { header: false, delimiter: col_sep })`
+    end
+  end
+end
+
 Shale.xml_adapter = Adapter::DOMParser
 Shale.json_adapter = Adapter::JsJSON
 Shale.yaml_adapter = Adapter::JsYAML
 Shale.toml_adapter = Adapter::JsTOML
+Shale.csv_adapter = Adapter::JsCSV

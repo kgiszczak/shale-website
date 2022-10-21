@@ -58,12 +58,13 @@
       </h1>
 
       <p>
-        <strong>Shale</strong> is a Ruby object mapper and serializer for JSON, YAML, TOML and XML.
+        <strong>Shale</strong> is a Ruby object mapper and serializer
+        for JSON, YAML, TOML, CSV and XML.
       </p>
 
       <p>
-        It allows you to parse JSON, YAML, TOML and XML data and convert it into Ruby data
-        structures, as well as serialize data structures into JSON, YAML, TOML or XML.
+        It allows you to parse JSON, YAML, TOML, CSV and XML data and convert it into Ruby data
+        structures, as well as serialize data structures into JSON, YAML, TOML, CSV or XML.
       </p>
 
       <h2 id="introduction">
@@ -113,7 +114,7 @@ puts doc.to_xml
 
       <p>
         With Shale you can use Ruby objects to work with data
-        converting it to/from JSON, YAML, TOML or XML.
+        converting it to/from JSON, YAML, TOML, CSV or XML.
       </p>
 
       <p>
@@ -199,7 +200,7 @@ puts person.to_xml
 
       <p>
         Shale doesn't have external dependencies. It uses standard library's
-        <code>JSON</code> and <code>YAML</code> parsers by default.
+        <code>JSON</code>, <code>YAML</code> and <code>CSV</code> parsers by default.
       </p>
 
       <p>
@@ -214,12 +215,12 @@ puts person.to_xml
       </h2>
 
       <ul>
-        <li>Convert JSON, YAML, TOML and XML to Ruby data model</li>
-        <li>Convert Ruby data model to JSON, YAML, TOML and XML</li>
+        <li>Convert JSON, YAML, TOML, CSV and XML to Ruby data model</li>
+        <li>Convert Ruby data model to JSON, YAML, TOML, CSV and XML</li>
         <li>Generate JSON and XML Schema from Ruby models</li>
         <li>Compile JSON Schema into Ruby models</li>
         <li>
-          Out of the box support for JSON, YAML, Tomlib,
+          Out of the box support for JSON, YAML, CSV, Tomlib,
           toml-rb, Nokogiri, REXML and Ox parsers
         </li>
         <li>Support for custom adapters</li>
@@ -233,7 +234,7 @@ puts person.to_xml
 
       <div class="code-section">
         <div class="code-wrapper">
-          <div class="code code-readonly" data-mode="ruby" style="height: 50px;">
+          <div class="code code-readonly" data-mode="ruby" style="height: 53px;">
   gem 'shale'
           </div>
         </div>
@@ -244,7 +245,7 @@ puts person.to_xml
 
       <div class="code-section">
         <div class="code-wrapper">
-          <div class="code code-readonly" data-mode="sh" style="height: 50px;">
+          <div class="code code-readonly" data-mode="sh" style="height: 53px;">
   $ bundle install
           </div>
         </div>
@@ -255,7 +256,7 @@ puts person.to_xml
 
       <div class="code-section">
         <div class="code-wrapper">
-          <div class="code code-readonly" data-mode="sh" style="height: 50px;">
+          <div class="code code-readonly" data-mode="sh" style="height: 53px;">
   $ gem install shale
           </div>
         </div>
@@ -267,7 +268,7 @@ puts person.to_xml
       </h2>
 
       <p>
-        JSON and YAML are supported by default, but to work with XML you need to install XML
+        JSON, YAML and CSV are supported by default, but to work with XML you need to install XML
         parser and setup adapter. For example to setup REXML as an adapter use:
       </p>
 
@@ -302,14 +303,29 @@ puts person.to_xml
         e.g. <code>Person.from_json(json_doc)</code>
       </p>
 
+      <div class="tip">
+        <p class="tip-title">NOTE</p>
+        <p>
+          CSV represents a flat data structure, so you can't map properties to complex types
+          directly, but you can use methods to map properties to complex types (see
+          <a href="#using-methods">Using methods to extract and generate data</a> section).
+        </p>
+      </div>
+
+      <div class="tip">
+        <p class="tip-title">WARNING</p>
+        <p><code>.from_csv</code> method allways returns an array of records.</p>
+      </div>
+
       <div id="example-data-to-ruby">
         <div class="example-group">
           <strong>Example:</strong>
-          <a href="" data-mode="json" class="active-example">JSON to Ruby</a>
-          <a href="" data-mode="yaml">YAML to Ruby</a>
-          <a href="" data-mode="toml">TOML to Ruby</a>
-          <a href="" data-mode="xml">XML to Ruby</a>
-          <a href="" data-mode="ruby">Hash to Ruby</a>
+          <a href="" data-mode="json" class="active-example">JSON</a>
+          <a href="" data-mode="yaml">YAML</a>
+          <a href="" data-mode="toml">TOML</a>
+          <a href="" data-mode="csv">CSV</a>
+          <a href="" data-mode="xml">XML</a>
+          <a href="" data-mode="ruby">Hash</a>
         </div>
 
         <div class="code-section code-section-editor">
@@ -345,11 +361,12 @@ puts person.to_xml
       <div id="example-ruby-to-data">
         <div class="example-group">
           <strong>Example:</strong>
-          <a href="" data-mode="json" class="active-example">Ruby to JSON</a>
-          <a href="" data-mode="yaml">Ruby to YAML</a>
-          <a href="" data-mode="toml">Ruby to TOML</a>
-          <a href="" data-mode="xml">Ruby to XML</a>
-          <a href="" data-mode="ruby">Ruby to Hash</a>
+          <a href="" data-mode="json" class="active-example">JSON</a>
+          <a href="" data-mode="yaml">YAML</a>
+          <a href="" data-mode="toml">TOML</a>
+          <a href="" data-mode="csv">CSV</a>
+          <a href="" data-mode="xml">XML</a>
+          <a href="" data-mode="ruby">Hash</a>
         </div>
 
         <div class="code-section code-section-editor">
@@ -377,7 +394,7 @@ puts person.to_xml
       </h2>
 
       <p>
-        Shale allows converting collections for formats that support it (JSON and YAML).
+        Shale allows converting collections for formats that support it (JSON, YAML and CSV).
       </p>
 
       <p>To convert data to Ruby array:</p>
@@ -387,6 +404,7 @@ puts person.to_xml
           <strong>Example:</strong>
           <a href="" data-mode="json" class="active-example">JSON to Ruby</a>
           <a href="" data-mode="yaml">YAML to Ruby</a>
+          <a href="" data-mode="csv">CSV to Ruby</a>
           <a href="" data-mode="ruby">Hash to Ruby</a>
         </div>
 
@@ -417,6 +435,7 @@ puts person.to_xml
           <strong>Example:</strong>
           <a href="" data-mode="json" class="active-example">Ruby to JSON</a>
           <a href="" data-mode="yaml">Ruby to YAML</a>
+          <a href="" data-mode="csv">Ruby to CSV</a>
           <a href="" data-mode="ruby">Ruby to Hash</a>
         </div>
 
@@ -446,7 +465,7 @@ puts person.to_xml
 
       <p>
         When you define a class and add attributes, underneath Shale creates an implicit mapping
-        of keys (for JSON/YAML/TOML) and elements (for XML) to attributes.
+        of keys (for JSON/YAML/TOML), columns (for CSV) or elements (for XML) to attributes.
         That is nice for setting up your data model quickly, but usually your data format doesn't
         match your data model so cleanly.
       </p>
@@ -461,12 +480,23 @@ puts person.to_xml
         <p>Declaring custom mapping removes default mapping for given format!</p>
       </div>
 
+      <div class="tip">
+        <p class="tip-title">NOTE</p>
+        <p>
+          For CSV the order of mapping matters. The first argument in the <code>map</code>
+          method is only used as a label in header row. So, in the example below the first
+          column will be mapped to <code>:first_name</code> attribute and the second
+          column to <code>:last_name</code>.
+        </p>
+      </div>
+
       <div id="example-custom-mapping">
         <div class="example-group">
           <strong>Example:</strong>
           <a href="" data-mode="json" class="active-example">Ruby to JSON</a>
           <a href="" data-mode="yaml">Ruby to YAML</a>
           <a href="" data-mode="toml">Ruby to TOML</a>
+          <a href="" data-mode="csv">Ruby to CSV</a>
           <a href="" data-mode="ruby">Ruby to Hash</a>
         </div>
 
@@ -519,7 +549,7 @@ puts person.to_xml
 
         <div class="code-section code-section-output">
           <div class="code-wrapper">
-            <div class="code code-readonly" data-mode="ruby" style="height: 100px;">
+            <div class="code code-readonly" data-mode="ruby" style="height: 105px;">
             </div>
           </div>
         </div>
@@ -605,9 +635,12 @@ puts person.to_xml
       </h2>
 
       <p>
-        By default elements with <code>nil</code> value are not rendered.
-        You can change this behavior by using <code>render_nil: true</code> on a mapping.
+        For JSON, YAML, TOML and XML by default elements with <code>nil</code>
+        value are not rendered. You can change this behavior by using
+        <code>render_nil: true</code> on a mapping.
       </p>
+
+      <p>For CSV, the default is to render <code>nil</code> elements.</p>
 
       <div id="example-rendering-nil-values">
         <div class="example-group">
@@ -615,6 +648,7 @@ puts person.to_xml
           <a href="" data-mode="json" class="active-example">JSON</a>
           <a href="" data-mode="yaml">YAML</a>
           <a href="" data-mode="toml">TOML</a>
+          <a href="" data-mode="csv">CSV</a>
           <a href="" data-mode="xml">XML</a>
         </div>
 
@@ -653,6 +687,7 @@ puts person.to_xml
           <a href="" data-mode="json" class="active-example">JSON</a>
           <a href="" data-mode="yaml">YAML</a>
           <a href="" data-mode="toml">TOML</a>
+          <a href="" data-mode="csv">CSV</a>
           <a href="" data-mode="xml">XML</a>
         </div>
 
@@ -781,8 +816,9 @@ puts person.to_xml
           <div
             class="code code-readonly code-with-gutter"
             data-mode="ruby"
-            style="height: 180px;"
+            style="height: 190px;"
           >person.to_json(pretty: true)
+
 # =>
 #
 # {
@@ -799,7 +835,7 @@ puts person.to_xml
       <p>
         You can also add an XML declaration by passing
         <code>declaration: true</code> and <code>encoding: true</code> to <code>#to_xml</code>.
-        You can use specify version by using string argument e.g.
+        You can use specific version by using string argument e.g.
         <code>#to_xml(declaration: '1.1', encoding: 'ASCII')</code>
       </p>
 
@@ -808,14 +844,55 @@ puts person.to_xml
           <div
             class="code code-readonly code-with-gutter"
             data-mode="ruby"
-            style="height: 140px;"
+            style="height: 160px;"
           >person.to_xml(pretty: true, declaration: true, encoding: true)
+
 # =>
 #
 # &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 # &lt;Person&gt;
 #   &lt;Address city="London"/&gt;
 # &lt;/Person&gt;
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
+      <p>
+        For CSV you can pass <code>headers: true</code> to indicate that the first row contains
+        column names and shouldn't be included in the returned collection.
+        It also accepts all the options that
+        <a
+          href="https://ruby-doc.org/stdlib-3.1.2/libdoc/csv/rdoc/CSV.html#class-CSV-label-Options"
+          target="_blank"
+        >
+          CSV parser
+        </a> accepts.
+      </p>
+
+      <div class="code-section">
+        <div class="code-wrapper">
+          <div
+            class="code code-readonly code-with-gutter"
+            data-mode="ruby"
+            style="height: 310px;"
+          >class Person
+  attribute :first_name, Shale::Type::String
+  attribute :last_name, Shale::Type::String
+end
+
+people = Person.from_csv(<<~DATA, headers: true, col_sep: '|')
+  first_name|last_name
+  John|Doe
+  James|Sixpack
+DATA
+
+# =>
+#
+# [
+#   #&lt;Person:0x0000000113d7a488 @first_name="John", @last_name="Doe"&gt;,
+#   #&lt;Person:0x0000000113d7a488 @first_name="James", @last_name="Sixpack"&gt;
+# ]
           </div>
         </div>
         <a href="" class="copy-to-clipboard"></a>
@@ -904,7 +981,7 @@ puts person.to_xml
 
       <div class="code-section">
         <div class="code-wrapper">
-          <div class="code code-readonly" data-mode="sh" style="height: 50px;">
+          <div class="code code-readonly" data-mode="sh" style="height: 53px;">
   $ shaleb -i data_model.rb -r Person -p -f json
           </div>
         </div>
@@ -915,7 +992,7 @@ puts person.to_xml
 
       <div class="code-section">
         <div class="code-wrapper">
-          <div class="code code-readonly" data-mode="sh" style="height: 50px;">
+          <div class="code code-readonly" data-mode="sh" style="height: 53px;">
   $ shaleb -i data_model.rb -r Person -p -f xml
           </div>
         </div>
@@ -991,7 +1068,7 @@ puts person.to_xml
 
       <div class="code-section">
         <div class="code-wrapper">
-          <div class="code code-readonly" data-mode="sh" style="height: 50px;">
+          <div class="code code-readonly" data-mode="sh" style="height: 53px;">
   $ shaleb -c -i schema.json -r Person
           </div>
         </div>
@@ -1002,7 +1079,7 @@ puts person.to_xml
 
       <div class="code-section">
         <div class="code-wrapper">
-          <div class="code code-readonly" data-mode="sh" style="height: 50px;">
+          <div class="code code-readonly" data-mode="sh" style="height: 53px;">
   $ shaleb -c -f xml -i schema.xml
           </div>
         </div>
@@ -1027,7 +1104,7 @@ puts person.to_xml
       </ul>
 
       <p>
-        To add your own type extend defina a class and extend it from
+        To add your own type define a class and extend it from
         <code>Shale::Type::Value</code> and implement <code>.cast</code> class method.
       </p>
 
@@ -1055,13 +1132,13 @@ end
 
       <p>
         Shale uses adapters for parsing and generating documents.
-        By default Ruby's standard JSON and YAML parsers are
-        used for handling JSON and YAML documents.
+        By default Ruby's standard JSON, YAML and CSV parsers are
+        used for handling JSON, YAML and CSV documents.
       </p>
 
       <p>
-        You can change it by providing your own adapter. For JSON, TOML and YAML, adapter must implement
-        <code>.load</code> and <code>.dump</code> class methods.
+        You can change it by providing your own adapter. For JSON, TOML, YAML and CSV, adapter
+        must implement <code>.load</code> and <code>.dump</code> class methods.
       </p>
 
       <div class="code-section">
@@ -1082,8 +1159,8 @@ Shale.yaml_adapter = MyYamlAdapter
 
       <p>
         To handle TOML documents you have to explicitly set TOML adapter.
-        Out of the box <code>Tomlib</code> is supported.
-        Shale also provides adapter for <code>toml-rb</code> parser:
+        Out of the box <a href="https://github.com/kgiszczak/tomlib" target="_blank">Tomlib</a>
+        is supported. Shale also provides adapter for <code>toml-rb</code> parser:
       </p>
 
       <div class="code-section">

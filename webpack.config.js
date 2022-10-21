@@ -38,6 +38,7 @@ module.exports = {
     new ProvidePlugin({
       jsyaml: 'js-yaml',
       TOML: '@iarna/toml',
+      Papa: 'papaparse',
     }),
   ],
   performance: {
