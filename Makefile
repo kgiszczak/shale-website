@@ -10,7 +10,7 @@ deploy: build
 .PHONY: build
 build: runtime
 	rm -rf dist
-	webpack build --mode production
+	yarn webpack build --mode production
 
 .PHONY: runtime
 runtime: clone-opal-uri clone-shale bundle
