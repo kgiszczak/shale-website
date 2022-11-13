@@ -62,6 +62,12 @@ import exampleUsingMethodsContextJson from './snippets/example-using-methods-con
 import exampleUsingMethodsGroupingJson from './snippets/example-using-methods-grouping/json.rb';
 import exampleUsingMethodsGroupingXml from './snippets/example-using-methods-grouping/xml.rb';
 
+import exampleAttributeDelegationJson from './snippets/example-attribute-delegation/json.rb';
+import exampleAttributeDelegationYaml from './snippets/example-attribute-delegation/yaml.rb';
+import exampleAttributeDelegationToml from './snippets/example-attribute-delegation/toml.rb';
+import exampleAttributeDelegationCsv from './snippets/example-attribute-delegation/csv.rb';
+import exampleAttributeDelegationXml from './snippets/example-attribute-delegation/xml.rb';
+
 import exampleOnlyExceptOptionsRender from './snippets/example-only-except-options/render.rb';
 import exampleOnlyExceptOptionsParse from './snippets/example-only-except-options/parse.rb';
 
@@ -320,6 +326,14 @@ window.addEventListener('DOMContentLoaded', () => {
     xml: { snippet: exampleUsingMethodsGroupingXml, outputMode: 'ruby' },
   });
 
+  initExample('#example-attribute-delegation', 'json', {
+    json: { snippet: exampleAttributeDelegationJson, outputMode: 'ruby' },
+    yaml: { snippet: exampleAttributeDelegationYaml, outputMode: 'ruby' },
+    toml: { snippet: exampleAttributeDelegationToml, outputMode: 'ruby' },
+    csv: { snippet: exampleAttributeDelegationCsv, outputMode: 'ruby' },
+    xml: { snippet: exampleAttributeDelegationXml, outputMode: 'ruby' },
+  });
+
   initExample('#example-only-except-options', 'render', {
     render: { snippet: exampleOnlyExceptOptionsRender, outputMode: 'json' },
     parse: { snippet: exampleOnlyExceptOptionsParse, outputMode: 'ruby' },
@@ -390,5 +404,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   initExample('#example-release-v090-support-for-csv', 'ruby', {
     ruby: { snippet: exampleDataToRubyCsv, outputMode: 'ruby' },
+  });
+
+  initExample('#example-release-v100-support-attribute-delegation', 'ruby', {
+    ruby: { snippet: exampleAttributeDelegationJson, outputMode: 'ruby' },
   });
 });

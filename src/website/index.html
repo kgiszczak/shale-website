@@ -44,6 +44,7 @@
         <a href="#using-xml-namespaces">XML namespaces</a>
         <a href="#rendering-nil-values">Rendering nil values</a>
         <a href="#using-methods">Using methods</a>
+        <a href="#attribute-delegation">Attribute delegation</a>
         <a href="#additional-options">Additional options</a>
         <a href="#using-custom-models">Using custom models</a>
         <a href="#generating-json-and-xml-schema">Generating Schema</a>
@@ -307,8 +308,9 @@ puts person.to_xml
         <p class="tip-title">NOTE</p>
         <p>
           CSV represents a flat data structure, so you can't map properties to complex types
-          directly, but you can use methods to map properties to complex types (see
-          <a href="#using-methods">Using methods to extract and generate data</a> section).
+          directly, but you can use <a href="#attribute-delegation">attribute delegation</a> or
+          methods to map properties to complex types
+          (see <a href="#using-methods">using methods to extract and generate data</a> section).
         </p>
       </div>
 
@@ -752,6 +754,46 @@ puts person.to_xml
         <div class="code-section code-section-editor">
           <div class="code-wrapper">
             <div class="code code-with-gutter" data-mode="ruby" style="height: 530px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="ruby" style="height: 90px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="attribute-delegation">
+        <a href="#attribute-delegation" class="header-anchor">#</a>
+        Attribute delegation
+      </h2>
+
+      <p>
+        To delegate fields to child complex types you can use
+        <code>receiver: :child</code> declaration on a mapping.
+      </p>
+
+      <div id="example-attribute-delegation">
+        <div class="example-group">
+          <strong>Example:</strong>
+          <a href="" data-mode="json" class="active-example">JSON</a>
+          <a href="" data-mode="yaml">YAML</a>
+          <a href="" data-mode="toml">TOML</a>
+          <a href="" data-mode="csv">CSV</a>
+          <a href="" data-mode="xml">XML</a>
+        </div>
+
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 500px;">
             </div>
           </div>
           <a href="" class="copy-to-clipboard"></a>
