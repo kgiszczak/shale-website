@@ -2,10 +2,10 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
-    opal (1.5.0)
+    opal (1.6.0)
       ast (>= 2.3.0)
       parser (~> 3.0, >= 3.0.3.2)
-    parser (3.1.2.0)
+    parser (3.1.2.1)
       ast (~> 2.4.1)
 
 PLATFORMS
@@ -13,7 +13,7 @@ PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
-  opal (= 1.5.0)
+  opal (= 1.6.0)
 
 BUNDLED WITH
    2.3.10

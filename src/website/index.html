@@ -1076,7 +1076,11 @@ DATA
       </h2>
 
       <p>
-        To compile JSON or XML Schema and generate Ruby data model use:
+        To compile JSON or XML Schema and generate Ruby data model use
+        <code>Shale::Schema.from_json</code> or <code>Shale::Schema.from_xml</code>.
+        You can pass <code>namespace_mapping: {}</code> to map JSON schemas
+        or XML namespaces to Ruby modules. For JSON schema, you can also pass
+        <code>root_name: 'Foobar'</code> to change the name of the root type.
       </p>
 
       <div id="example-compiling-schema">
@@ -1088,7 +1092,7 @@ DATA
 
         <div class="code-section code-section-editor">
           <div class="code-wrapper">
-            <div class="code code-with-gutter" data-mode="ruby" style="height: 450px;">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 650px;">
             </div>
           </div>
           <a href="" class="copy-to-clipboard"></a>
@@ -1111,7 +1115,7 @@ DATA
       <div class="code-section">
         <div class="code-wrapper">
           <div class="code code-readonly" data-mode="sh" style="height: 53px;">
-  $ shaleb -c -i schema.json -r Person
+  $ shaleb -c -i schema.json -r Person -m http://bar.com=Api::Bar,=Api::Foo
           </div>
         </div>
         <a href="" class="copy-to-clipboard"></a>
@@ -1122,7 +1126,7 @@ DATA
       <div class="code-section">
         <div class="code-wrapper">
           <div class="code code-readonly" data-mode="sh" style="height: 53px;">
-  $ shaleb -c -f xml -i schema.xml
+  $ shaleb -c -f xml -i schema.xml -m http://bar.com=Api::Bar,=Api::Foo
           </div>
         </div>
         <a href="" class="copy-to-clipboard"></a>

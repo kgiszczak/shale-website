@@ -13,12 +13,8 @@ build: runtime
 	yarn webpack build --mode production
 
 .PHONY: runtime
-runtime: clone-opal-uri clone-shale bundle
-	cd src/runtime && opal -c --no-source-map -I shale/lib -I opal-uri/opal -I stubs runtime.rb > ../website/runtime.js
-
-.PHONY: clone-opal-uri
-clone-opal-uri:
-	cd src/runtime && (git -C opal-uri pull || git clone https://github.com/ajjahn/opal-uri.git opal-uri)
+runtime: clone-shale bundle
+	cd src/runtime && opal -c --no-source-map -I shale/lib -I stubs runtime.rb > ../website/runtime.js
 
 .PHONY: clone-shale
 clone-shale:

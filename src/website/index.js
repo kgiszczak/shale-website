@@ -409,4 +409,9 @@ window.addEventListener('DOMContentLoaded', () => {
   initExample('#example-release-v100-support-attribute-delegation', 'ruby', {
     ruby: { snippet: exampleAttributeDelegationJson, outputMode: 'ruby' },
   });
+
+  initExample('#example-release-v100-support-namespace-mapping', 'json', {
+    json: { snippet: exampleCompilingSchemaJson, outputMode: 'ruby' },
+    xml: { snippet: exampleCompilingSchemaXml, outputMode: 'ruby' },
+  });
 });

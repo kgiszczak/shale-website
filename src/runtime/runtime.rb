@@ -4,6 +4,281 @@ require 'native'
 require 'template'
 require 'ostruct'
 
+module URI
+  class Generic
+    attr_reader :host, :port, :path, :query, :fragment
+
+    DEFAULT_PORTS = {
+      'ftp' => 21,
+      'http' => 80,
+      'https' => 443,
+      'ldap' => 389,
+      'ldaps' => 636,
+      'ws' => 80,
+      'wss' => 443,
+    }
+
+    def initialize(
+      scheme,
+      userinfo,
+      host,
+      port,
+      registry,
+      path,
+      opaque,
+      query,
+      fragment,
+      parser = nil,
+      arg_check = false
+    )
+      @scheme = scheme
+      @userinfo = userinfo
+      @host = host
+      @port = port
+      @path = path
+      @query = query
+      @fragment = fragment
+      @user, @password = userinfo.split(/:/) if userinfo
+    end
+
+    def absolute?
+      @scheme ? true : false
+    end
+
+    def relative?
+      !absolute?
+    end
+
+    def merge(oth)
+      rel = URI(oth)
+
+      if rel.absolute?
+        return rel
+      end
+
+      unless self.absolute?
+        raise BadURIError, "both URI are relative"
+      end
+
+      base = self.dup
+
+      authority = rel.userinfo || rel.host || rel.port
+
+      if (rel.path.nil? || rel.path.empty?) && !authority && !rel.query
+        base.fragment=(rel.fragment) if rel.fragment
+        return base
+      end
+
+      base.query = nil
+      base.fragment=(nil)
+
+      if !authority
+        base.set_path(merge_path(base.path, rel.path)) if base.path && rel.path
+      else
+        base.set_path(rel.path) if rel.path
+      end
+
+      base.set_userinfo(rel.userinfo) if rel.userinfo
+      base.set_host(rel.host) if rel.host
+      base.set_port(rel.port) if rel.port
+      base.query = rel.query if rel.query
+      base.fragment=(rel.fragment) if rel.fragment
+
+      return base
+    end
+
+    def split_path(path)
+      path.split("/", -1)
+    end
+
+    def merge_path(base, rel)
+      base_path = split_path(base)
+      rel_path  = split_path(rel)
+
+      base_path += '' if base_path.last == '..'
+      while i = base_path.index('..')
+        base_path.slice!(i - 1, 2)
+      end
+
+      if (first = rel_path.first) and first.empty?
+        base_path.clear
+        rel_path.shift
+      end
+
+      rel_path.push('') if rel_path.last == '.' || rel_path.last == '..'
+      rel_path.delete('.')
+
+      tmp = []
+      rel_path.each do |x|
+        if x == '..' && !(tmp.empty? || tmp.last == '..')
+          tmp.pop
+        else
+          tmp << x
+        end
+      end
+
+      add_trailer_slash = !tmp.empty?
+      if base_path.empty?
+        base_path = ['']
+      elsif add_trailer_slash
+        base_path.pop
+      end
+      while x = tmp.shift
+        if x == '..'
+          base_path.pop if base_path.size > 1
+        else
+          base_path << x
+          tmp.each {|t| base_path << t}
+          add_trailer_slash = false
+          break
+        end
+      end
+      base_path.push('') if add_trailer_slash
+
+      return base_path.join('/')
+    end
+
+    def split_userinfo(ui)
+      return nil, nil unless ui
+      user, password = ui.split(':', 2)
+
+      return user, password
+    end
+
+    def set_userinfo(user, password = nil)
+      unless password
+        user, password = split_userinfo(user)
+      end
+      @user = user
+      @password = password if password
+
+      [@user, @password]
+    end
+
+    def set_host(v)
+      @host = v
+    end
+
+    def set_port(v)
+      v = v.empty? ? nil : v.to_i unless !v || v.kind_of?(Integer)
+      @port = v
+    end
+
+    def set_path(v)
+      @path = v
+    end
+
+    def query=(v)
+      @query = v ? v : nil
+    end
+
+    def fragment=(v)
+      @fragment = v ? v : nil
+    end
+
+    def userinfo
+      if @user.nil?
+        nil
+      elsif @password.nil?
+        @user
+      else
+        @user + ':' + @password
+      end
+    end
+
+    def default_port
+      nil
+    end
+
+    def to_s
+      str = ''
+      if @scheme
+        str += @scheme
+        str += ':'
+      end
+
+      if @opaque
+        str += @opaque
+      else
+        if @host || %w[file postgres].include?(@scheme)
+          str += '//'
+        end
+        if self.userinfo
+          str += self.userinfo
+          str += '@'
+        end
+        if @host
+          str += @host
+        end
+        if @port && !@port.empty? && @port.to_i != DEFAULT_PORTS[@scheme]
+          str += ':'
+          str += @port.to_s
+        end
+        str += @path
+        if @query
+          str += '?'
+          str += @query
+        end
+      end
+      if @fragment
+        str += '#'
+        str += @fragment
+      end
+      str
+    end
+  end
+
+  def self.parse(url)
+    scheme, userinfo, host, port, registry, path, opaque, query, fragment = nil
+
+    `
+      try {
+        const uri = new URL(url);
+
+        if (uri.protocol) {
+          scheme = uri.protocol.replace(':', '');
+        }
+
+        userinfo = (uri.username || '') + ':' + (uri.password || '');
+        host = uri.hostname;
+        port = uri.port;
+
+        if (uri.pathname === '/') {
+          path = '';
+        } else {
+          path = uri.pathname;
+        }
+
+        if (uri.search) {
+          query = uri.search.replace('?', '');
+        }
+
+        if (uri.hash) {
+          fragment = uri.hash.replace('#', '');
+        }
+      } catch {
+        path = url;
+      }
+    `
+
+    Generic.new(scheme, userinfo, host, port, registry, path, opaque, query, fragment)
+  end
+end
+
+module Kernel
+  def URI(uri)
+    if uri.is_a?(URI::Generic)
+      uri
+    elsif uri = String.try_convert(uri)
+      URI.parse(uri)
+    else
+      raise ArgumentError,
+        "bad argument (expected URI object or URI string)"
+    end
+  end
+  module_function :URI
+end
+
 class String
   def dump
     "\"#{self}\""
