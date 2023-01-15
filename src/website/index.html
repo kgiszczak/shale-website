@@ -674,6 +674,62 @@ puts person.to_xml
         </div>
       </div>
 
+      <p>
+        If you want to change how nil values are rendered
+        for all mappings you can use <code>render_nil</code> method:
+      </p>
+
+      <div id="example-rendering-nil-defaults">
+        <div class="code-section code-section-editor">
+          <div class="code-wrapper">
+            <div class="code code-with-gutter" data-mode="ruby" style="height: 420px;">
+            </div>
+          </div>
+          <a href="" class="copy-to-clipboard"></a>
+        </div>
+
+        <div class="run-button-wrapper">
+          <a href="" class="run-button"><span class="loader"></span>Run Example</a>
+        </div>
+
+        <div class="code-section code-section-output">
+          <div class="code-wrapper">
+            <div class="code code-readonly" data-mode="json" style="height: 90px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <p class="tip-title">WARNING</p>
+        <p>The default affects only the mappings declared after setting the default value e.g.</p>
+      </div>
+
+      <div class="code-section">
+        <div class="code-wrapper">
+          <div
+            class="code code-readonly code-with-gutter"
+            data-mode="ruby"
+            style="height: 240px;"
+          >class Person < Base
+  attribute :first_name, Shale::Type::String
+  attribute :last_name, Shale::Type::String
+
+  json do
+    render_nil false
+    # render_nil will be false for this mapping
+    map 'first_name', to: :first_name
+
+    render_nil true
+    # render_nil will be true for this mapping
+    map 'last_name', to: :last_name
+  end
+end
+          </div>
+        </div>
+        <a href="" class="copy-to-clipboard"></a>
+      </div>
+
       <h2 id="using-methods">
         <a href="#using-methods" class="header-anchor">#</a>
         Using methods to extract and generate data

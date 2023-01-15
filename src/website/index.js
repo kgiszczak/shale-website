@@ -51,6 +51,8 @@ import exampleRenderingNilValuesToml from './snippets/example-rendering-nil-valu
 import exampleRenderingNilValuesCsv from './snippets/example-rendering-nil-values/csv.rb';
 import exampleRenderingNilValuesXml from './snippets/example-rendering-nil-values/xml.rb';
 
+import exampleRenderingNilDefaultsJson from './snippets/example-rendering-nil-defaults/json.rb';
+
 import exampleUsingMethodsJson from './snippets/example-using-methods/json.rb';
 import exampleUsingMethodsYaml from './snippets/example-using-methods/yaml.rb';
 import exampleUsingMethodsToml from './snippets/example-using-methods/toml.rb';
@@ -309,6 +311,10 @@ window.addEventListener('DOMContentLoaded', () => {
     xml: { snippet: exampleRenderingNilValuesXml, outputMode: 'ruby' },
   });
 
+  initExample('#example-rendering-nil-defaults', 'json', {
+    json: { snippet: exampleRenderingNilDefaultsJson, outputMode: 'ruby' },
+  });
+
   initExample('#example-using-methods', 'json', {
     json: { snippet: exampleUsingMethodsJson, outputMode: 'ruby' },
     yaml: { snippet: exampleUsingMethodsYaml, outputMode: 'ruby' },
@@ -408,6 +414,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   initExample('#example-release-v100-support-attribute-delegation', 'ruby', {
     ruby: { snippet: exampleAttributeDelegationJson, outputMode: 'ruby' },
+  });
+
+  initExample('#example-release-v100-rendering-nil-defaults', 'json', {
+    json: { snippet: exampleRenderingNilDefaultsJson, outputMode: 'ruby' },
   });
 
   initExample('#example-release-v100-support-namespace-mapping', 'json', {
