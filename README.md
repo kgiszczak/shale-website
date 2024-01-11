@@ -40,7 +40,7 @@ $ make runtime
 To vendor lates version of Shale gem use:
 
 ```
-$ make clone-shell
+$ make clone-shale
 ```
 
 To install all the dependencies required by runtime use:
